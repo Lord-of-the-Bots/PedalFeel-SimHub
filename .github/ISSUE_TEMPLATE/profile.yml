@@ -1,0 +1,59 @@
+name: Share a profile
+description: Driving settings, screenshots and feedback for a specific car and pedal setup.
+title: "[Profile] Car — hardware"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help build a useful car/class library by sharing settings you actually drive with, including weak or overwhelming effects.
+        Please include both settings sections: **Feel in game** and **Pedal setup** for every used pedal. [Sharing guide](https://github.com/Lord-of-the-Bots/PedalFeel-SimHub/blob/main/docs/PROFILE-SHARING.md).
+  - type: input
+    id: car
+    attributes:
+      label: Car and class
+      description: Exact model; list other tested cars separately.
+      placeholder: Car model, class
+    validations:
+      required: true
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Pedals and motors
+      description: Pedals, actuator model, controller, mounting and relevant modifications.
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: SimHub and PedalFeel for SimHub versions.
+    validations:
+      required: true
+  - type: textarea
+    id: effects
+    attributes:
+      label: Feel in game
+      description: Attach complete screenshots showing profile/base, overall strength and all brake, throttle and road settings. Several screenshots are fine.
+    validations:
+      required: true
+  - type: textarea
+    id: calibration
+    attributes:
+      label: Pedal setup
+      description: Attach screenshots for every used pedal showing all four frequency minimum/maximum values, physical channel and whether it is enabled.
+    validations:
+      required: true
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Driving scenario
+      description: Track/corner, manoeuvre, starting profile and changes. State if you only used previews or direct motor tests.
+    validations:
+      required: true
+  - type: textarea
+    id: findings
+    attributes:
+      label: What helps and what needs work
+      description: Useful, weak, overwhelming or misleading effects; remaining limitations and things you have not tested.
+    validations:
+      required: true

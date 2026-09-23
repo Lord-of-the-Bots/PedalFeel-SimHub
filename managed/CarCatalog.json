@@ -1,0 +1,2694 @@
+[
+  {
+    "name": "NASCAR Gen 4 Grand National",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-gen-4-grand-national/"
+    ]
+  },
+  {
+    "name": "Next Gen NASCAR Cup Series Chevrolet Camaro ZL1",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Cup Series Next Gen Chevrolet Camaro ZL1"
+    ],
+    "paths": [
+      "stockcars\\camarozl12022"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/next-gen-nascar-cup-series-chevrolet-camaro/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Next Gen NASCAR Cup Series Ford Mustang",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Cup Series Next Gen Ford Mustang"
+    ],
+    "paths": [
+      "stockcars\\fordmustang2022"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/next-gen-nascar-cup-series-ford-mustang/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Next Gen NASCAR Cup Series Toyota Camry",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Cup Series Next Gen Toyota Camry"
+    ],
+    "paths": [
+      "stockcars\\toyotacamry2022"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/next-gen-nascar-cup-series-toyota-camry/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR O’Reilly Chevrolet Camaro",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Xfinity Chevrolet Camaro"
+    ],
+    "paths": [
+      "stockcars2\\camaro2019"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-oreilly-chevrolet-camaro/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR O’Reilly Ford Mustang",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Xfinity Ford Mustang"
+    ],
+    "paths": [
+      "stockcars2\\mustang2019"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-oreilly-ford-mustang/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR O’Reilly Toyota Supra",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Xfinity Toyota Supra"
+    ],
+    "paths": [
+      "stockcars2\\supra2019"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-oreilly-toyota-supra/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Truck RAM",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-truck-ram/"
+    ]
+  },
+  {
+    "name": "NASCAR Truck Series Chevrolet Silverado",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Truck Chevrolet Silverado"
+    ],
+    "paths": [
+      "trucks\\silverado2019"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-truck-series-chevrolet-silverado/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Truck Series Ford F-150",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Truck Ford F150"
+    ],
+    "paths": [
+      "trucks\\fordf150"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-truck-series-ford-f-150/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Truck Series Toyota Tundra TRD",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Truck Toyota Tundra TRD Pro"
+    ],
+    "paths": [
+      "trucks\\toyotatundra2022"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-truck-series-toyota-tundra/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "ARCA Chevrolet SS",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars2\\arcachevy25"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/arca-chevrolet-ss/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "ARCA Ford Mustang",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars2\\arcaford25"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/arca-ford-mustang/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "ARCA Toyota Camry",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars2\\arcatoyota25"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/arca-toyota-camry/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Whelen Tour Modified",
+    "family": "oval_open",
+    "aliases": [],
+    "paths": [
+      "skmodified\\tour"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-whelen-tour-modified/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "SK Modified Car",
+    "family": "oval_open",
+    "aliases": [
+      "Modified - SK"
+    ],
+    "paths": [
+      "skmodified"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/sk-modified/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Gen 4 Chevrolet Monte Carlo – 2003",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Gen 4 Chevrolet Monte Carlo - 2003"
+    ],
+    "paths": [
+      "stockcars\\chevymontecarlo03"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/gen4-chevrolet-monte-carlo-2003/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Gen 4 Ford Taurus – 2003",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Gen 4 Ford Taurus - 2003"
+    ],
+    "paths": [
+      "stockcars\\fordtaurus03"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/gen4-ford-taurus-2003/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Legends Buick LeSabre – 1987",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Legends Buick LeSabre - 1987"
+    ],
+    "paths": [
+      "stockcars\\buicklesabre87"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-1987-buick-lesabre/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Legends Ford Thunderbird – 1987",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Legends Ford Thunderbird - 1987"
+    ],
+    "paths": [
+      "stockcars\\fordthunderbird87"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-1987-ford-thunderbird/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Legends Pontiac Grand Prix – 1987",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Legends Pontiac Grand Prix - 1987"
+    ],
+    "paths": [
+      "stockcars\\pontiacgrandprix87"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-1987-pontiac-grand-prix/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Legends Chevrolet Monte Carlo – 1987",
+    "family": "oval_stock",
+    "aliases": [
+      "NASCAR Legends Chevrolet Monte Carlo - 1987"
+    ],
+    "paths": [
+      "stockcars\\chevymontecarlo87"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-1987-chevrolet-monte-carlo/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Late Model Stock",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "latemodel2023"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/late-model-stock/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Super Late Model",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "superlatemodel"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/super-late-model/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "SRX",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/srx/"
+    ]
+  },
+  {
+    "name": "Street Stock – Panther",
+    "family": "oval_stock",
+    "aliases": [
+      "Street Stock"
+    ],
+    "paths": [
+      "streetstock"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/street-stock-panther/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Street Stock – Eagle",
+    "family": "oval_stock",
+    "aliases": [
+      "Street Stock - Eagle"
+    ],
+    "paths": [
+      "streetstock\\streetstock3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/street-stock-eagle/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Street Stock – Casino",
+    "family": "oval_stock",
+    "aliases": [
+      "Street Stock - Casino"
+    ],
+    "paths": [
+      "streetstock\\streetstock2"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/street-stock-casino/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Mini Stock",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "ministock"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mini-stock/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Legends Ford ’34 Coupe",
+    "family": "oval_stock",
+    "aliases": [
+      "Legends Ford '34 Coupe"
+    ],
+    "paths": [
+      "legends\\ford34c"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ford-34-coupe/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Cup Series Chevrolet Camaro ZL1",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars\\camarozl12018"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-monster-energy-cup-chevrolet-camaro-zl1/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Cup Series Ford Mustang",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars\\fordmustang2019"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-monster-energy-cup-ford-mustang/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Cup Series Ford Fusion",
+    "family": "oval_stock",
+    "aliases": [
+      "[Legacy] NASCAR Cup Ford Fusion - 2016"
+    ],
+    "paths": [
+      "stockcars\\fordfusion"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-cup-series-ford-fusion/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Cup Series Toyota Camry",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars\\toyotacamry"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/toyota-camry-gen6/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR  Chevrolet SS Cup Car",
+    "family": "oval_stock",
+    "aliases": [
+      "[Legacy] NASCAR Cup Chevrolet SS - 2013"
+    ],
+    "paths": [
+      "stockcars\\chevyss"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/chevrolet-ss/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Gen 4 Cup",
+    "family": "oval_stock",
+    "aliases": [
+      "[Legacy] Gen 4 Cup"
+    ],
+    "paths": [
+      "stockcars2\\chevy\\gen4cup"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-gen-4-cup/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Xfinity Series Toyota Camry 2018",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-xfinity-toyota-camry/"
+    ]
+  },
+  {
+    "name": "NASCAR Xfinity Series Chevrolet Camaro 2018",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-xfinity-series-chevrolet-camaro-2018/"
+    ]
+  },
+  {
+    "name": "NASCAR Xfinity Series Ford Mustang 2018",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-xfinity-series-ford-mustang-2018/"
+    ]
+  },
+  {
+    "name": "NASCAR Chevrolet Impala SS COT circa 2013",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/chevrolet-impala-ss-sprint-cup-series/"
+    ]
+  },
+  {
+    "name": "NASCAR Xfinity Series Chevrolet Impala SS – Circa 2011",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/chevrolet-impala-ss-nationwide-series/"
+    ]
+  },
+  {
+    "name": "NASCAR Truck Chevrolet Silverado – 2008",
+    "family": "oval_stock",
+    "aliases": [
+      "[Legacy] NASCAR Truck Chevrolet Silverado - 2008"
+    ],
+    "paths": [
+      "trucks\\silverado"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-truck-chevrolet-silverado-2008/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "C&R Racing Silver Crown Car",
+    "family": "oval_open",
+    "aliases": [
+      "Silver Crown"
+    ],
+    "paths": [
+      "silvercrown"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/cr-racing-silver-crown-car/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Sprint Car",
+    "family": "oval_open",
+    "aliases": [],
+    "paths": [
+      "sprint"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/sprint-car/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Caterham 420R",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/caterham-420r/"
+    ]
+  },
+  {
+    "name": "Caterham Academy",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/caterham-academy/"
+    ]
+  },
+  {
+    "name": "Aston Martin Vantage GT3 EVO",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "amvantageevogt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/aston-martin-vantage-gt3-evo/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ford Mustang GT4",
+    "family": "gt4",
+    "aliases": [],
+    "paths": [
+      "fordmustanggt4"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ford-mustang-gt4/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Acura NSX GT3 EVO 22",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "acuransxevo22gt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/acura-nsx-gt3-evo22/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Audi R8 LMS EVO II GT3",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "audir8lmsevo2gt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/audi-r8-lms-evo-ii-gt3/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "BMW M4 GT3 EVO",
+    "family": "gt3",
+    "aliases": [
+      "BMW M4 GT3"
+    ],
+    "paths": [
+      "bmwm4gt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/bmw-m4-gt3-evo/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Chevrolet Corvette Z06 GT3.R",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "chevyvettez06rgt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/chevrolet-corvette-z06-gt3r/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ferrari 296 GT3",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "ferrari296gt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ferrari-296-gt3/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ford Mustang GT3",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "fordmustanggt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ford-mustang-gt3/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Lamborghini Huracán GT3 EVO",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "lamborghinievogt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/lamborghini-huracan-gt3-evo/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "McLaren 720S GT3 EVO",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "mclaren720sgt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mclaren-720s-gt3-evo/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Mercedes-AMG GT3 2020",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "mercedesamgevogt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mercedes-amg-gt3-2020/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Porsche 911 GT3 R (992)",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "porsche992rgt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/porsche-911-gt3-r-992/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ferrari 296 Challenge",
+    "family": "cup",
+    "aliases": [],
+    "paths": [
+      "ferrari296challenge"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ferrari-296-challenge/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Porsche 911 Cup (992.2)",
+    "family": "cup",
+    "aliases": [],
+    "paths": [
+      "porsche9922cup"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/porsche-911-cup-992-2/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Porsche 911 Cup (992.1)",
+    "family": "cup",
+    "aliases": [
+      "[Legacy] Porsche 911 GT3 Cup (992.1)"
+    ],
+    "paths": [
+      "porsche992cup"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/porsche-911-gt3-cup-992/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Euro NASCAR V8GP",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/euro-nascar/"
+    ]
+  },
+  {
+    "name": "Supercars Chevrolet Camaro Gen 3",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/supercars-chevrolet-camaro-gen3/"
+    ]
+  },
+  {
+    "name": "Supercars Ford Mustang Gen 3",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [
+      "supercars\\fordmustanggen3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/supercars-ford-mustang-gen3/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Aston Martin Vantage GT4",
+    "family": "gt4",
+    "aliases": [],
+    "paths": [
+      "amvantagegt4"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/aston-martin-vantage-gt4/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "BMW M4 G82 GT4 Evo",
+    "family": "gt4",
+    "aliases": [
+      "BMW M4 G82 GT4"
+    ],
+    "paths": [
+      "bmwm4evogt4"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/bmw-m4-g82-gt4-evo/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "McLaren 570S GT4",
+    "family": "gt4",
+    "aliases": [],
+    "paths": [
+      "mclaren570sgt4"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mclaren-570s-gt4/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Mercedes-AMG GT4",
+    "family": "gt4",
+    "aliases": [],
+    "paths": [
+      "mercedesamggt4"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mercedes-amg-gt4/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Porsche 718 Cayman GT4 Clubsport",
+    "family": "gt4",
+    "aliases": [
+      "Porsche 718 Cayman GT4 Clubsport MR"
+    ],
+    "paths": [
+      "porsche718gt4"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/porsche-718-cayman/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Audi RS3 LMS Gen2 TCR",
+    "family": "touring_fwd",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/audi-rs3-lms-gen2-tcr/"
+    ]
+  },
+  {
+    "name": "Audi RS 3 LMS TCR",
+    "family": "touring_fwd",
+    "aliases": [
+      "Audi RS3 LMS TCR"
+    ],
+    "paths": [
+      "audirs3lms"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/audi-rs-3-lms-tcr/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Hyundai Elantra N TCR",
+    "family": "touring_fwd",
+    "aliases": [],
+    "paths": [
+      "hyundaielantracn7"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/hyundai-elantra-n-tcr/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Hyundai Veloster N TCR",
+    "family": "touring_fwd",
+    "aliases": [],
+    "paths": [
+      "hyundaivelostern"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/hyundai-veloster-n-tcr/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Honda Civic Type R TCR",
+    "family": "touring_fwd",
+    "aliases": [],
+    "paths": [
+      "hondacivictyper"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/honda-civic-type-r-tcr/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "BMW M2 Racing (G87)",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/bmw-m2-racing-g87/"
+    ]
+  },
+  {
+    "name": "BMW M2 CS Racing",
+    "family": "road_rwd",
+    "aliases": [
+      "BMW M2 CSR"
+    ],
+    "paths": [
+      "bmwrn2csr"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/bmw-m2-cs-racing/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Renault Clio R.S. V",
+    "family": "touring_fwd",
+    "aliases": [
+      "Renault Clio"
+    ],
+    "paths": [
+      "renaultcliocup"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/renault-clio-rs-v/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Toyota GR86",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [
+      "toyotagr86"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/toyota-gr86/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Global Mazda MX-5 Cup",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [
+      "mx5\\mx52016"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/global-mazda-mx-5-cup/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Stockcar Brasil Chevrolet Cruze",
+    "family": "road_rwd",
+    "aliases": [
+      "Stock Car Pro Series Chevrolet Cruze"
+    ],
+    "paths": [
+      "stockcarbrasil\\cruze"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/stockcar-brasil-chevrolet-cruze/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Stockcar Brasil Toyota Corolla",
+    "family": "road_rwd",
+    "aliases": [
+      "Stock Car Pro Series Toyota Corolla"
+    ],
+    "paths": [
+      "stockcarbrasil\\corolla"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/stockcar-brasil-toyota-corolla/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "BMW M8 GTE",
+    "family": "gte",
+    "aliases": [],
+    "paths": [
+      "bmwm8gte"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/bmw-m8-gte/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Chevrolet Corvette C8.R",
+    "family": "gte",
+    "aliases": [
+      "Chevrolet Corvette C8.R GTE"
+    ],
+    "paths": [
+      "c8rvettegte"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/chevrolet-corvette-c8-r/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ferrari 488 GTE",
+    "family": "gte",
+    "aliases": [],
+    "paths": [
+      "ferrari488gte"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ferrari-488-gte/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ford GT GTE",
+    "family": "gte",
+    "aliases": [
+      "Ford GTE"
+    ],
+    "paths": [
+      "fordgt2017"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ford-gt-gte/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Porsche 911 RSR",
+    "family": "gte",
+    "aliases": [],
+    "paths": [
+      "porsche991rsr"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/porsche-911-rsr/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Porsche Mission R",
+    "family": "electric",
+    "aliases": [],
+    "paths": [
+      "porschemissionr"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/porsche-mission-r/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Chevrolet Corvette C6.R",
+    "family": "gte",
+    "aliases": [
+      "Chevrolet Corvette C6.R GT1"
+    ],
+    "paths": [
+      "c6r"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/chevrolet-corvette-c6-r/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Aston Martin DBR9 GT1",
+    "family": "gte",
+    "aliases": [],
+    "paths": [
+      "astonmartin\\dbr9"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/aston-martin-gt1/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Cadillac CTS-V",
+    "family": "road_rwd",
+    "aliases": [
+      "Cadillac CTS-V Racecar"
+    ],
+    "paths": [
+      "cadillacctsvr"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/cadillac-cts-v/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Kia Optima",
+    "family": "touring_fwd",
+    "aliases": [],
+    "paths": [
+      "kiaoptima"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/kia-optima/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ford Mustang FR500S",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [
+      "fr500s"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ford-mustang-fr500s/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Audi 90 GTO",
+    "family": "road_awd",
+    "aliases": [],
+    "paths": [
+      "audi90gto"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/audi-90-gto/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ferrari 488 GT3",
+    "family": "gt3",
+    "aliases": [
+      "[Legacy] Ferrari 488 GT3"
+    ],
+    "paths": [
+      "ferrari488gt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ferrari-488-gt3/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "McLaren MP4-12C GT3",
+    "family": "gt3",
+    "aliases": [
+      "[Legacy] McLaren MP4-12C GT3"
+    ],
+    "paths": [
+      "mclarenmp4"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mclaren-mp4-12c-gt3/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "BMW Z4 GT3",
+    "family": "gt3",
+    "aliases": [
+      "[Legacy] BMW Z4 GT3"
+    ],
+    "paths": [
+      "bmwz4gt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/bmw-z4-gt3/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ford GT-R",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ford-gt/"
+    ]
+  },
+  {
+    "name": "Audi R8 LMS GT3",
+    "family": "gt3",
+    "aliases": [
+      "[Legacy] Audi R8 LMS GT3"
+    ],
+    "paths": [
+      "audir8gt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/audi-r8-lms-gt3/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ferrari 488 GT3 Evo 2020",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "ferrarievogt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ferrari-488-gt3-evo-2020/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Mercedes-AMG GT3",
+    "family": "gt3",
+    "aliases": [
+      "[Legacy] Mercedes-AMG GT3"
+    ],
+    "paths": [
+      "mercedesamggt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mercedes-amg-gt3/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Porsche 911 GT3 R",
+    "family": "gt3",
+    "aliases": [
+      "[Legacy] Porsche 911 GT3 R"
+    ],
+    "paths": [
+      "porsche911rgt3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/porsche-911-gt3-r/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Supercars Ford Mustang GT",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [
+      "v8supercars\\fordmustanggt"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/supercars-ford-mustang-gt/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Supercars Holden ZB Commodore",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [
+      "v8supercars\\holden2019"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/supercars-holden-zb-commodore/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "V8 Supercar Holden VF Commodore – 2014",
+    "family": "road_rwd",
+    "aliases": [
+      "[Legacy] V8 Supercar Holden VF Commodore - 2014"
+    ],
+    "paths": [
+      "v8supercars\\holden2014"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/v8-supercar-holden-vf-commodore-2014/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "V8 Supercar Ford FG Falcon – 2014",
+    "family": "road_rwd",
+    "aliases": [
+      "[Legacy] V8 Supercar Ford FG Falcon - 2014"
+    ],
+    "paths": [
+      "v8supercars\\ford2014"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/v8-supercar-ford-fg-falcon-2014/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "V8 Supercar Ford Falcon – 2009",
+    "family": "road_rwd",
+    "aliases": [
+      "[Legacy] V8 Supercar Ford Falcon - 2009"
+    ],
+    "paths": [
+      "fordv8sc"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/v8-supercar-ford-falcon-2009/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Porsche 911 GT3 Cup",
+    "family": "cup",
+    "aliases": [
+      "[Legacy] Porsche 911 GT3 Cup (991)"
+    ],
+    "paths": [
+      "porsche911cup"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/porsche-gt3-cup/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "BMW M4 F82 GT4 – 2018",
+    "family": "gt4",
+    "aliases": [
+      "BMW M4 F82 GT4 - 2018"
+    ],
+    "paths": [
+      "bmwm4gt4"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/bmw-m4-f82-gt4/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "RUF RT 12 R",
+    "family": "fallback",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ruf-rt-12-r/"
+    ]
+  },
+  {
+    "name": "Volkswagen Jetta TDi",
+    "family": "touring_fwd",
+    "aliases": [
+      "VW Jetta TDI Cup"
+    ],
+    "paths": [
+      "jettatdi"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/volkswagen-jetta-tdi/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Pontiac Solstice Club Sport",
+    "family": "road_rwd",
+    "aliases": [
+      "Pontiac Solstice"
+    ],
+    "paths": [
+      "solstice"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/pontiac-solstice-club-sport/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Pontiac Solstice Club Sport – Rookie",
+    "family": "road_rwd",
+    "aliases": [
+      "Pontiac Solstice - Rookie"
+    ],
+    "paths": [
+      "solstice\\rookie"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/pontiac-solstice-club-sport-rookie/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Mazda MX-5 Cup – 2010",
+    "family": "road_rwd",
+    "aliases": [
+      "[Legacy] Mazda MX-5 Cup - 2010"
+    ],
+    "paths": [
+      "mx5\\cup"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mazda-mx-5-cup-2010/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Mazda MX-5 Roadster – 2010",
+    "family": "road_rwd",
+    "aliases": [
+      "[Legacy] Mazda MX-5 Roadster - 2010"
+    ],
+    "paths": [
+      "mx5\\roadster"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mazda-mx-5-roadster-2010/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Aston Martin Valkyrie AMR-LMH",
+    "family": "prototype",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/aston-martin-valkyrie-amr-lmh/"
+    ]
+  },
+  {
+    "name": "BMW M Hybrid V8 Evo",
+    "family": "prototype",
+    "aliases": [
+      "BMW M Hybrid V8"
+    ],
+    "paths": [
+      "bmwlmdh"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/bmw-m-hybrid-v8-evo/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars",
+      "https://www.iracing.com/iracing-2026-season-3-is-here/"
+    ]
+  },
+  {
+    "name": "Ferrari 499P",
+    "family": "prototype",
+    "aliases": [],
+    "paths": [
+      "ferrari499p"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ferrari-499p/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Acura ARX-06 GTP",
+    "family": "prototype",
+    "aliases": [],
+    "paths": [
+      "acuraarx06gtp"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/acura-arx-06-gtp/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Porsche 963 GTP",
+    "family": "prototype",
+    "aliases": [],
+    "paths": [
+      "porsche963gtp"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/porsche-963-gtp/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Cadillac V-Series.R GTP",
+    "family": "prototype",
+    "aliases": [],
+    "paths": [
+      "cadillacvseriesgtp"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/cadillac-v-series-r-gtp/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ligier JS P320",
+    "family": "prototype",
+    "aliases": [],
+    "paths": [
+      "ligierjsp320"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ligier-js-p320/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Dallara P217 LMP2",
+    "family": "prototype",
+    "aliases": [
+      "Dallara P217"
+    ],
+    "paths": [
+      "dallarap217"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dallara-p217-lmp2/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Radical SR10",
+    "family": "prototype",
+    "aliases": [],
+    "paths": [
+      "radical\\radicalsr10"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/radical-sr10/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Porsche 919 LMP1",
+    "family": "prototype",
+    "aliases": [
+      "Porsche 919"
+    ],
+    "paths": [
+      "porsche919"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/porsche-919-lmp1/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Audi R18 LMP1",
+    "family": "prototype",
+    "aliases": [
+      "Audi R18"
+    ],
+    "paths": [
+      "audir18"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/audi-r18-lmp1/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Chevrolet Corvette C7 Daytona Prototype",
+    "family": "prototype",
+    "aliases": [],
+    "paths": [
+      "c7vettedp"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/chevrolet-corvette-c7-daytona-prototype/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "HPD ARX 01c",
+    "family": "prototype",
+    "aliases": [
+      "HPD ARX-01c"
+    ],
+    "paths": [
+      "hpdarx01c"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/hpd-arx-01c/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Riley Mk XX Daytona Prototype",
+    "family": "prototype",
+    "aliases": [
+      "[Legacy] Riley MkXX Daytona Prototype - 2008"
+    ],
+    "paths": [
+      "rileydp"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/riley-mkxx-daytona-prototype/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Nissan GTP ZX-T",
+    "family": "prototype",
+    "aliases": [
+      "Nissan GTP ZXT"
+    ],
+    "paths": [
+      "nissangtpzxt"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nissan-gtp-zx-t/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Radical SR8 V8",
+    "family": "prototype",
+    "aliases": [
+      "Radical SR8"
+    ],
+    "paths": [
+      "radical\\sr8"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/radical-sr8-v8/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "SCCA Spec Racer Ford",
+    "family": "prototype",
+    "aliases": [],
+    "paths": [
+      "specracer"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/scca-spec-racer/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Formula Vee – Conqueror",
+    "family": "formula",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/formula-vee-conqueror/"
+    ]
+  },
+  {
+    "name": "Formula Vee – Sabre",
+    "family": "formula",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/formula-vee-sabre/"
+    ]
+  },
+  {
+    "name": "Dallara IL-15",
+    "family": "formula",
+    "aliases": [
+      "Dallara IL-15 (INDY NXT)"
+    ],
+    "paths": [
+      "dallarail15"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dallara-il-15/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Super Formula Lights",
+    "family": "formula",
+    "aliases": [],
+    "paths": [
+      "superformulalights324"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/super-formula-lights/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Super Formula SF23 – Honda",
+    "family": "formula",
+    "aliases": [
+      "Super Formula SF23 - Honda"
+    ],
+    "paths": [
+      "superformulasf23\\honda"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/super-formula-sf23-honda/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Super Formula SF23 – Toyota",
+    "family": "formula",
+    "aliases": [
+      "Super Formula SF23 - Toyota"
+    ],
+    "paths": [
+      "superformulasf23\\toyota"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/super-formula-sf23-toyota/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ray FF1600",
+    "family": "formula",
+    "aliases": [],
+    "paths": [
+      "raygr22"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ray-ff1600/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Mercedes-AMG F1 W13 E Performance",
+    "family": "formula",
+    "aliases": [
+      "Mercedes-AMG W13 E Performance"
+    ],
+    "paths": [
+      "mercedesw13"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mercedes-amg-w13-e-performance/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Mercedes-AMG F1 W12 E Performance",
+    "family": "formula",
+    "aliases": [
+      "Mercedes-AMG W12 E Performance"
+    ],
+    "paths": [
+      "mercedesw12"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mercedes-amg-f1-w12-e-performance/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Indy Pro 2000",
+    "family": "formula",
+    "aliases": [
+      "Indy Pro 2000 PM-18"
+    ],
+    "paths": [
+      "indypropm18"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/indy-pro-2000/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "FIA F4",
+    "family": "formula",
+    "aliases": [],
+    "paths": [
+      "formulair04"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/fia-f4/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Dallara iR-01",
+    "family": "formula",
+    "aliases": [],
+    "paths": [
+      "dallarair01"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dallara-ir01/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Formula Vee – Classic",
+    "family": "formula",
+    "aliases": [
+      "Formula Vee"
+    ],
+    "paths": [
+      "formulavee"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/formula-vee/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "USF2000",
+    "family": "formula",
+    "aliases": [
+      "USF 2000"
+    ],
+    "paths": [
+      "usf2000usf17"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/usf2000/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "McLaren Honda MP4-30",
+    "family": "formula",
+    "aliases": [
+      "McLaren MP4-30"
+    ],
+    "paths": [
+      "mclarenmp430"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mclaren-honda-mp4-30/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Williams-Toyota FW31",
+    "family": "formula",
+    "aliases": [
+      "Williams FW31"
+    ],
+    "paths": [
+      "williamsfw31"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/williams-toyota-fw31/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Dallara IR18 INDYCAR",
+    "family": "formula",
+    "aliases": [
+      "Dallara IR18"
+    ],
+    "paths": [
+      "dallarair18"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dallara-ir18/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Formula Renault 3.5",
+    "family": "formula",
+    "aliases": [],
+    "paths": [
+      "formularenault35"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/formula-renault-3-5/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Dallara F3",
+    "family": "formula",
+    "aliases": [],
+    "paths": [
+      "dallaraf3"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dallara-f3/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Formula Renault 2.0",
+    "family": "formula",
+    "aliases": [],
+    "paths": [
+      "formularenault20"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/formula-renault-2-0/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Pro Mazda",
+    "family": "formula",
+    "aliases": [
+      "[Legacy] Pro Mazda"
+    ],
+    "paths": [
+      "formulamazda"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/star-mazda/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Skip Barber Formula 2000",
+    "family": "formula",
+    "aliases": [],
+    "paths": [
+      "rt2000"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/skip-barber-formula-2000/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Lotus 49",
+    "family": "formula",
+    "aliases": [],
+    "paths": [
+      "lotus49"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/classic-lotus-49/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Lotus 79",
+    "family": "formula",
+    "aliases": [],
+    "paths": [
+      "lotus79"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/lotus-79/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Dallara DW12",
+    "family": "formula",
+    "aliases": [
+      "[Legacy] Dallara DW12"
+    ],
+    "paths": [
+      "dallaradw12"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dallara-dw12/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Dallara IR05- Circa 2009",
+    "family": "formula",
+    "aliases": [
+      "[Legacy] Dallara IR-05"
+    ],
+    "paths": [
+      "dallara"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dallara-ir05/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Mini Stock – Dirt",
+    "family": "dirt_oval",
+    "aliases": [
+      "Dirt Mini Stock"
+    ],
+    "paths": [
+      "dirtministock"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/mini-stock-dirt/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "DIRTcar 358 Small Block Modified",
+    "family": "dirt_oval",
+    "aliases": [
+      "Dirt 358 Modified"
+    ],
+    "paths": [
+      "dirtmodified\\358"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/358-modified/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Super DIRTcar Big Block Modified",
+    "family": "dirt_oval",
+    "aliases": [
+      "Dirt Big Block Modified"
+    ],
+    "paths": [
+      "dirtmodified\\bigblock"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/big-block-modified/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "World of Outlaws 410 Sprint Car",
+    "family": "dirt_oval",
+    "aliases": [
+      "Dirt Sprint Car - 410"
+    ],
+    "paths": [
+      "dirtsprint\\winged\\410"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-410-sprint-car/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "DIRTcar 360 Sprint Car",
+    "family": "dirt_oval",
+    "aliases": [
+      "Dirt Sprint Car - 360"
+    ],
+    "paths": [
+      "dirtsprint\\winged\\360"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-360-sprint-car/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "DIRTcar 305 Sprint Car",
+    "family": "dirt_oval",
+    "aliases": [
+      "Dirt Sprint Car - 305"
+    ],
+    "paths": [
+      "dirtsprint\\winged\\305"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-305-sprint-car/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Dirt Micro Sprint",
+    "family": "dirt_oval",
+    "aliases": [
+      "Dirt Micro Sprint Car - Winged"
+    ],
+    "paths": [
+      "dirtmicrosprint\\winged"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-micro-sprint/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Dirt Outlaw Micro Sprint – Winged",
+    "family": "dirt_oval",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-outlaw-micro-sprint/"
+    ]
+  },
+  {
+    "name": "Dirt Micro Sprint – Non Winged",
+    "family": "dirt_oval",
+    "aliases": [
+      "Dirt Micro Sprint Car - Non-Winged"
+    ],
+    "paths": [
+      "dirtmicrosprint\\nonwinged"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-micro-sprint-non-winged/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Dirt Outlaw Micro Sprint – Non Winged",
+    "family": "dirt_oval",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-outlaw-micro-sprint-non-winged/"
+    ]
+  },
+  {
+    "name": "Dirt Midget",
+    "family": "dirt_oval",
+    "aliases": [],
+    "paths": [
+      "dirtmidget"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-midget/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "World of Outlaws Super Late Model",
+    "family": "dirt_oval",
+    "aliases": [
+      "Super Dirt Late Model"
+    ],
+    "paths": [
+      "dirtlatemodel\\438"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-super-late-model/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "DIRTcar Pro Late Model",
+    "family": "dirt_oval",
+    "aliases": [
+      "Pro Dirt Late Model"
+    ],
+    "paths": [
+      "dirtlatemodel\\358"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-pro-late-model/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "DIRTcar Limited Late Model",
+    "family": "dirt_oval",
+    "aliases": [
+      "Limited Dirt Late Model"
+    ],
+    "paths": [
+      "dirtlatemodel\\350"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-limited-late-model/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "USAC 410 Sprint Car",
+    "family": "dirt_oval",
+    "aliases": [
+      "Dirt Sprint Car Non-Winged - 410"
+    ],
+    "paths": [
+      "dirtsprint\\nonwinged\\410"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/usac-410-sprint-car/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "USAC 360 Sprint Car",
+    "family": "dirt_oval",
+    "aliases": [
+      "Dirt Sprint Car Non-Winged - 360"
+    ],
+    "paths": [
+      "dirtsprint\\nonwinged\\360"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/usac-360-sprint-car/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "UMP Modified",
+    "family": "dirt_oval",
+    "aliases": [
+      "Dirt UMP Modified"
+    ],
+    "paths": [
+      "dirtumpmod"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ump-modified/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "NASCAR Truck Series Dirt Chevrolet Silverado",
+    "family": "dirt_oval",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-dirt-chevrolet-silverado/"
+    ]
+  },
+  {
+    "name": "NASCAR Truck Series DIrt Toyota Tundra TRD",
+    "family": "dirt_oval",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-dirt-toyota-tundra/"
+    ]
+  },
+  {
+    "name": "Dirt Legends Ford ’34 Coupe",
+    "family": "dirt_oval",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/legends-dirt-car/"
+    ]
+  },
+  {
+    "name": "NASCAR Truck Series Dirt Ford F-150",
+    "family": "dirt_oval",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/nascar-truck-series-dirt-ford-f-150/"
+    ]
+  },
+  {
+    "name": "Dirt Street Stock",
+    "family": "dirt_oval",
+    "aliases": [],
+    "paths": [
+      "dirtstreetstock"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/dirt-street-stock/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "FIA Cross Car",
+    "family": "rallycross",
+    "aliases": [],
+    "paths": [
+      "crosscartn11"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/fia-cross-car/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Subaru WRX STI",
+    "family": "rallycross",
+    "aliases": [],
+    "paths": [
+      "subaruwrxsti"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/subaru-wrx-sti/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ford Fiesta RS WRC",
+    "family": "rallycross",
+    "aliases": [],
+    "paths": [
+      "fordfiestarswrc"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/ford-fiesta-rs-wrc/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "VW Beetle",
+    "family": "rallycross",
+    "aliases": [],
+    "paths": [
+      "vwbeetlegrc"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/vw-beetle/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "VW Beetle Lite",
+    "family": "rallycross",
+    "aliases": [],
+    "paths": [
+      "vwbeetlegrc\\lite"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/vw-beetle-lite/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Lucas Oil Off Road Pro 2 Truck",
+    "family": "offroad",
+    "aliases": [],
+    "paths": [
+      "protrucks\\pro2truck"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/lucas-oil-off-road-pro-2-truck/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Lucas Oil Off Road Pro 4 Truck",
+    "family": "offroad",
+    "aliases": [],
+    "paths": [
+      "protrucks\\pro4truck"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/lucas-oil-off-road-pro-4-truck/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Lucas Oil Off-Road Pro 2 Lite Truck",
+    "family": "offroad",
+    "aliases": [
+      "Lucas Oil Off Road Pro 2 Lite"
+    ],
+    "paths": [
+      "protrucks\\pro2lite"
+    ],
+    "sourceUrls": [
+      "https://www.iracing.com/cars/",
+      "https://www.iracing.com/cars/pro-2-lite/",
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ford GT GT2",
+    "family": "gte",
+    "aliases": [],
+    "paths": [
+      "fordgt"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ford GT GT3",
+    "family": "gt3",
+    "aliases": [],
+    "paths": [
+      "fordgt\\gt3"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Legends Ford '34 Coupe - Rookie",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "legends\\ford34c\\rookie"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ruf RT 12R AWD",
+    "family": "road_awd",
+    "aliases": [],
+    "paths": [
+      "rufrt12r\\awd"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ruf RT 12R C-Spec",
+    "family": "cup",
+    "aliases": [],
+    "paths": [
+      "rufrt12r\\track\\cspec"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ruf RT 12R RWD",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [
+      "rufrt12r\\rwd"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Ruf RT 12R Track",
+    "family": "road_rwd",
+    "aliases": [],
+    "paths": [
+      "rufrt12r\\track"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "[Legacy] ARCA Menards Chevrolet Impala",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars2\\chevy"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "[Legacy] NASCAR Cup Chevrolet Impala COT - 2009",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars\\impala"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "[Legacy] NASCAR Nationwide Chevrolet Impala - 2012",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars2\\chevy\\cot"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "[Legacy] NASCAR Xfinity Chevrolet Camaro - 2014",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars2\\nwcamaro2014"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "[Legacy] NASCAR Xfinity Ford Mustang - 2016",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars2\\nwford2013"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "[Legacy] NASCAR Xfinity Toyota Camry - 2015",
+    "family": "oval_stock",
+    "aliases": [],
+    "paths": [
+      "stockcars2\\camry2015"
+    ],
+    "sourceUrls": [
+      "https://support.iracing.com/support/solutions/articles/31000172625-filepath-for-active-iracing-cars"
+    ]
+  },
+  {
+    "name": "Formula Vee - Cutlass",
+    "family": "formula",
+    "aliases": [],
+    "paths": [],
+    "sourceUrls": [
+      "https://www.iracing.com/seasons/2026-s3/",
+      "https://support.iracing.com/support/solutions/articles/31000179016-2026-season-3-initial-release-notes-2026-06-09-01-"
+    ]
+  }
+]
