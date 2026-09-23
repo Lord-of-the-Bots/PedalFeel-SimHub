@@ -1,0 +1,120 @@
+# PedalFeel for SimHub
+
+[Download](https://github.com/Lord-of-the-Bots/PedalFeel-SimHub/releases) · [Share a profile](https://github.com/Lord-of-the-Bots/PedalFeel-SimHub/issues/new?template=profile.yml)
+
+Pedal haptics for iRacing inside your existing SimHub SIMAGIC device. Keep SimHub running, adjust effects, try them without driving, and save named profiles that load for assigned cars.
+
+This unofficial integration is based on [PedalFeel 0.19.0 by UdaraJay](https://github.com/UdaraJay/PedalFeel), which supplies the iRacing telemetry reader and haptic renderers. This project adds SimHub output handover, named profiles and car assignments, separate limiter/downshift controls, effect previews and translated settings. It is independent of, and not endorsed by, SimHub, SIMAGIC or iRacing.
+
+<details>
+<summary>See the interface</summary>
+
+UI illustrations from the released interface; the example car and connection state are simulated.
+
+![Profile selection and car assignment](docs/images/profiles.png)
+![Frequency calibration with direct 500 ms tests](docs/images/pedal-calibration.png)
+
+[More interface screens](docs/images/README.md)
+
+</details>
+
+## Current compatibility
+
+| Requirement | Supported use |
+| --- | --- |
+| System | 64-bit Windows 10 or 11 |
+| Game | iRacing |
+| Actuators | SIMAGIC P-HPR through an existing SimHub device |
+| SimHub device | **Devices → Simagic Haptic Pedals Reactor (P1000/P2000/P700/P500)** |
+| SimHub version | **SimHub versions older than 9.11.21 have not been tested.** |
+
+The pedal families in that entry are SimHub's device name, not a list of physically verified setups. Other motors, P-HPR Neo, P-HPR GT, active force-feedback pedals and other games are not supported by this release. Compatibility with a different generation of SimHub must be confirmed separately.
+
+## Install or update
+
+1. Download **PedalFeel-SimHub-0.4.0.zip** from the release assets and extract it. The **Source code** archives are not the installation package. Close SimHub for installation.
+2. Run **Install.cmd**. If prompted, select `SimHubWPF.exe` in your SimHub folder.
+3. Start SimHub and open **Devices → Simagic Haptic Pedals Reactor → PedalFeel**. If the device is missing, first add it through **Devices → Add new device → Simagic Haptic Pedals Reactor**. Leave the device enabled.
+4. Enable **Automatically enable PedalFeel in iRacing**.
+5. In iRacing, disable **Vibrate pedals and wheels** in **Options → Misc**. Stop SimPro's haptic output and close the standalone `PedalFeel.exe` so they do not send competing commands to these motors.
+6. Open **Pedal setup**, check the brake/throttle channels and try a low-power frequency test before driving.
+
+Update the complete package together; the plug-in and native engine must match. Existing settings are retained. For manual installation, copy the contents of `plugin` beside `SimHubWPF.exe`, preserving its subfolders.
+
+If installation reports **Access Denied** while writing to the SimHub folder, right-click **Install.cmd** and choose **Run as administrator**.
+
+Under **ShakeIt Motors → Motors Output**, SimHub may already disable the duplicate SIMAGIC output because it is handled in **Devices**. If the old **SIMAGIC Haptic Pedal Reactor** row is still enabled and routed to these motors, turn off that row. Leave unrelated motors, bass shakers and devices as they are.
+
+The original standalone PedalFeel can also run alongside SimHub when SimHub's output to that haptic device is disconnected, as [its author explains](https://www.reddit.com/r/simracing/comments/1uukj7i/comment/oxk3h8x/). This integration handles the handover inside SimHub and keeps the controls in the device's tab.
+
+## When PedalFeel takes control
+
+Automatic mode waits for the **iRacing simulator itself**. Opening the iRacing launcher/UI or selecting iRacing in SimHub is not enough. Outside the simulator, normal SimHub output remains available. An explicit effect preview or motor test temporarily takes control even without the game.
+
+While PedalFeel owns the output, **Effects** and **Hardware settings** explain why their controls are locked. **Return control to SimHub** turns off automatic mode. Closing the simulator returns control automatically; SimHub can take up to four seconds to detect the exit. Pauses and replays produce silence, and stalled telemetry is silenced after 250 ms.
+
+## Profiles
+
+Use **Feel in game** to select a profile and change its effects. The current car and assignment appear above the controls.
+
+1. Open **Create your own profile**, enter a name and choose a **Base**. The new profile belongs to your common library and can be used with any car.
+2. Choose **Create profile**. If a car is loaded in iRacing, you can tick **Assign to the current car now**.
+3. To assign an existing profile, select it and choose **Assign to current car**. It loads when that car is selected again, including a new session in the same car.
+4. Adjust the sliders. Changes save automatically to the selected profile. Every car assigned to that profile uses those changes.
+
+Selecting a profile alone applies it immediately for trying it out; it does not replace the car's saved assignment. Create a **Copy of the selected profile** before making changes that should affect only one car. A copy has independent settings. **Remove assignment** keeps the profile in your library and returns that car to Original GT3 Balanced. **Restore base settings** resets the selected profile to its base and affects all cars sharing it.
+
+There are two starting families:
+
+- **Original GT3:** Balanced, Subtle and Aggressive, based on the author's PedalFeel 0.19.0 settings. New bases use the integration's ×1 overall strength and a 20% upshift default; the other original effect coefficients are retained. That source version has no separate original GT4 preset.
+- **Formula cars:** a provisional starting point based on user feedback, with upshift, downshift and limiter at 20%. It has not been validated across all formula cars and is not a separate formula tyre model.
+
+New bases start at **×1**, which scales the original mixed signal by **2.1** before motor calibration. Upshift remains adjustable from 0–100%; 20% is its starting value, not a permanent cap. In Original GT3 bases, limiter and downshift start at 100% of their original effect amplitudes—not 100% motor power. Copies and imported profiles keep their saved values.
+
+Overall strength and enabled pedals belong to the profile. Automatic activation, physical channel mapping and motor frequency limits are shared by the device. Older saved car settings are imported as named profiles with their car assignments; tuned values and calibration are retained.
+
+## Effect previews and motor tests
+
+| Control | What it plays | What affects its power |
+| --- | --- | --- |
+| **Try** beside an effect in **Feel in game** | Up to two seconds of that effect, using simulated telemetry through the same renderer as driving | Selected profile, overall strength, enabled pedals and motor frequency limits |
+| **500 ms** beside a frequency slider in **Pedal setup** | A direct tone at 16, 25, 35 or 50 Hz | The exact percentage beside that button; profile strength does not apply |
+
+Effect previews cover brake loading, grip warning, wheel lock, ABS, downshift, rear traction loss, engine, limiter, idle, upshift, bumps and kerbs. Shifts and bumps are single events. Engine and kerb previews change frequency. They illustrate an effect, not a recording of a particular car; simultaneous effects can change its feel while driving.
+
+**Stop preview** ends the example. Another preview or motor test replaces the previous one. Editing settings, changing profiles/game state, disconnecting the device or closing the tab cancels an effect preview. Normal output then resumes: PedalFeel in a running iRacing session, otherwise SimHub. Zero-strength effects remain off during previews.
+
+## Strength and motor calibration
+
+- **Overall effect strength:** ×0–×2, in steps of 0.1. ×0 mutes game effects and their previews.
+- **Individual effect strengths:** 0–100%. Zero disables that effect. Brake effect strength also scales ABS, locking and downshift on the brake.
+- **Warning threshold:** 0.75–1.05. Lower values warn earlier; this is estimated grip, not motor power.
+- **Motor minimum/maximum:** 0–100% at 16, 25, 35 and 50 Hz, separately for brake and throttle.
+
+In **Pedal setup**, select a pedal and use the frequency-row sliders and **500 ms** buttons. Set a barely perceptible minimum and a comfortable maximum at each frequency. Moving a slider saves it without starting the motor. Initial motor limits are 0–35%; adjust them for your actuators, mounting and pedals.
+
+A maximum of 100% is a ceiling, not a request to vibrate constantly at full power. Small game signals can remain small. A high minimum strengthens every nonzero signal, so use effect strength to tune the effect itself. Zero game signal remains silent even with a nonzero minimum.
+
+If redline feedback is too strong, lower **Limiter** for the cutoff pulse or **Engine vibration** for vibration that rises with RPM. These are independent controls.
+
+## Build a useful profile library together
+
+**Please share the settings you actually drive with, including weak or overwhelming effects.** A useful report for one car and one pedal setup helps more than an unexplained claim that a profile works everywhere. The aim is a community library of car/class recommendations with documented hardware and limitations, not supposedly ideal settings for every car.
+
+Use the [profile form](https://github.com/Lord-of-the-Bots/PedalFeel-SimHub/issues/new?template=profile.yml). Include the car/model/class, actuators and controller, mounting, SimHub and plug-in versions, track/scenario, what helps and what still needs work. Attach **the complete Feel in game settings and Pedal setup calibration for every pedal used**. Effect sliders alone cannot describe motor output. See the [sharing guide](docs/PROFILE-SHARING.md).
+
+For faults, use the [bug report form](https://github.com/Lord-of-the-Bots/PedalFeel-SimHub/issues/new?template=bug_report.yml) with **Status details** and steps to reproduce.
+
+## Language, backup and removal
+
+The interface follows SimHub's language: English, Russian, German, French, Italian, Korean and Simplified Chinese.
+
+Back up `PluginsData/PedalFeel` inside your SimHub folder. Each device's JSON file contains its library, assignments and motor settings. `.bak` keeps the previous saved version; unreadable files are retained as `.recovery-*`. Standard ShakeIt profiles are not rewritten. There is no one-click single-profile import/export interface yet; do not replace your device file with another user's entire configuration.
+
+To uninstall, close SimHub and remove `PedalFeel.SimHub.dll` and the `PedalFeel` engine folder. Keep `PluginsData/PedalFeel` to restore your settings later.
+
+## Scope and source
+
+The original estimates are oriented around GT3 and rear-axle traction. ABS and limiter feedback require the corresponding live telemetry flags. Grip, wheel lock and traction estimates can behave differently between cars; this is not a validated model for every drivetrain, surface or racing class. The original application's overlay and CSV recording are not included.
+
+Source: [UdaraJay/PedalFeel](https://github.com/UdaraJay/PedalFeel), version 0.19.0, commit [`06649f3`](https://github.com/UdaraJay/PedalFeel/tree/06649f3cd7c59abaa5f928d82752ae9d8a3956ef). Source and runtime licence notices are included with the release. Building and contributing: [CONTRIBUTING.md](CONTRIBUTING.md).

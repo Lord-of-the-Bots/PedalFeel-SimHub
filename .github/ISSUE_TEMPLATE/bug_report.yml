@@ -1,0 +1,42 @@
+name: Bug report
+description: A reproducible problem with installation, controls, profiles or output.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Include the steps that lead to the problem and the relevant **Status details** from the PedalFeel tab.
+        To share driving settings or discuss weak/overwhelming effects, the [profile form](https://github.com/Lord-of-the-Bots/PedalFeel-SimHub/issues/new?template=profile.yml) asks for both effect settings and motor calibration.
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Windows, SimHub and PedalFeel for SimHub versions.
+    validations:
+      required: true
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Device and output
+      description: Pedals, actuator model, controller, selected SimHub device/channels and any other applications sending haptic output.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the car/profile and whether this happens while driving, in a two-second effect preview, in a 500 ms motor test or without the simulator.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual result
+      description: What should happen, what actually happens and whether it happens every time.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Status details and screenshots
+      description: Relevant Status details or log excerpt, screenshots and error text. For output-strength problems include both effect settings and frequency calibration.

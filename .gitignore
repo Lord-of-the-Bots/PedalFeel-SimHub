@@ -1,0 +1,8 @@
+**/bin/
+**/obj/
+native/.tools/
+native/build/
+build/
+research/
+tools/
+dist/

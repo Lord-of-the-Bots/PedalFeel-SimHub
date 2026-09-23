@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <OutputType>Exe</OutputType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AssemblyName>PedalFeel.Tests</AssemblyName>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <SimHubDir Condition="'$(SimHubDir)' == '' and '$(SIMHUB_INSTALL_PATH)' != ''">$(SIMHUB_INSTALL_PATH)</SimHubDir>
+    <SimHubDir Condition="'$(SimHubDir)' == ''">$(MSBuildProgramFiles32)\SimHub</SimHubDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../managed/PedalFeel.SimHub.csproj" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" PrivateAssets="all" />
+    <Reference Include="SimHub.Plugins"><HintPath>$(SimHubDir)\SimHub.Plugins.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="GameReaderCommon"><HintPath>$(SimHubDir)\GameReaderCommon.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Newtonsoft.Json"><HintPath>$(SimHubDir)\Newtonsoft.Json.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="BA63Driver"><HintPath>$(SimHubDir)\BA63Driver.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="WoteverCommon"><HintPath>$(SimHubDir)\WoteverCommon.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="SerialDash"><HintPath>$(SimHubDir)\SerialDash.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+  <Target Name="CopyNativeEngine" AfterTargets="Build">
+    <MakeDir Directories="$(OutDir)PedalFeel/x86;$(OutDir)PedalFeel/x64" />
+    <Copy SourceFiles="../native/build/x86/PedalFeel.Native.dll" DestinationFolder="$(OutDir)PedalFeel/x86" />
+    <Copy SourceFiles="../native/build/x64/PedalFeel.Native.dll" DestinationFolder="$(OutDir)PedalFeel/x64" />
+  </Target>
+</Project>

@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>PedalFeel.SimHub</AssemblyName>
+    <Version>0.4.0</Version>
+    <DebugType Condition="'$(Configuration)' == 'Release'">none</DebugType>
+    <DebugSymbols Condition="'$(Configuration)' == 'Release'">false</DebugSymbols>
+    <Description>PedalFeel haptics extension for the Simagic P2000 Haptic device in SimHub.</Description>
+    <SimHubDir Condition="'$(SimHubDir)' == '' and '$(SIMHUB_INSTALL_PATH)' != ''">$(SIMHUB_INSTALL_PATH)</SimHubDir>
+    <SimHubDir Condition="'$(SimHubDir)' == ''">$(MSBuildProgramFiles32)\SimHub</SimHubDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CarCatalog.json" LogicalName="PedalFeel.CarCatalog.json" />
+    <EmbeddedResource Include="Locales/*.json" LogicalName="PedalFeel.Locales.%(Filename)%(Extension)" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" PrivateAssets="all" />
+    <Reference Include="SimHub.Plugins"><HintPath>$(SimHubDir)\SimHub.Plugins.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="GameReaderCommon"><HintPath>$(SimHubDir)\GameReaderCommon.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="SimHub.Logging"><HintPath>$(SimHubDir)\SimHub.Logging.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="log4net"><HintPath>$(SimHubDir)\log4net.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Newtonsoft.Json"><HintPath>$(SimHubDir)\Newtonsoft.Json.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="BA63Driver"><HintPath>$(SimHubDir)\BA63Driver.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="SerialDash"><HintPath>$(SimHubDir)\SerialDash.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="WoteverCommon"><HintPath>$(SimHubDir)\WoteverCommon.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+  <Target Name="CheckSimHubSdk" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(SimHubDir)\SimHub.Plugins.dll')" Text="Set -p:SimHubDir to your SimHub installation folder." />
+  </Target>
+</Project>
