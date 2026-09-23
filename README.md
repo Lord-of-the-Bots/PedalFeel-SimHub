@@ -9,7 +9,7 @@ This unofficial integration is based on [PedalFeel 0.19.0 by UdaraJay](https://g
 <details>
 <summary>See the interface</summary>
 
-UI illustrations from the released interface; the example car and connection state are simulated.
+Profiles, car assignments and motor calibration in the PedalFeel tab.
 
 ![Profile selection and car assignment](docs/images/profiles.png)
 ![Frequency calibration with direct 500 ms tests](docs/images/pedal-calibration.png)
