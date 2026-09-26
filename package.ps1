@@ -1,6 +1,6 @@
 param([Parameter(Mandatory=$true)][string]$OutputDirectory)
 $ErrorActionPreference = 'Stop'
-$version = '0.5.0'
+$version = '0.5.1'
 $stage = Join-Path $PSScriptRoot ('build/package-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 $binary = Join-Path $stage "PedalFeel-SimHub-$version"
 $source = Join-Path $stage "PedalFeel-SimHub-$version-source"

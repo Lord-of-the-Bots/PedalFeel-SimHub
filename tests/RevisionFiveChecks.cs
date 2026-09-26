@@ -14,9 +14,9 @@ internal static class RevisionFiveChecks
         using (var r = new ProfileRepository(path)) {
             check(r.PanelState().Profiles.Count == 2 && r.CurrentProfileId == CarPresets.Standard, "only Standard and Original GT3 are seeded");
             var s = r.Current();
-            check(s.Strength == .60 && s.GripThreshold == 1 && s.Texture == 1 && s.AbsPunch == 1 &&
-                s.DownshiftKick == .80 && s.ShiftKick == .80 && s.TractionStrength == .40 &&
-                s.EngineTexture == .25 && s.IdleTexture == .25 && s.LimiterStrength == .25 && s.SurfaceStrength == .30 && s.EffectsGain == 2.1,
+            check(s.Strength == .60 && s.GripThreshold == 1 && s.Texture == .35 && s.AbsPunch == .70 &&
+                s.DownshiftKick == 1 && s.ShiftKick == .65 && s.TractionStrength == .30 &&
+                s.EngineTexture == .25 && s.IdleTexture == .25 && s.LimiterStrength == .25 && s.SurfaceStrength == .70 && s.EffectsGain == 2.1,
                 "Standard matches every supplied screenshot value and the fixed x1 baseline");
             r.SelectCar("IRacing", "a", "Car A");
             string id = r.CreateProfile("Custom", "current", true);
@@ -50,6 +50,23 @@ internal static class RevisionFiveChecks
         }
         check(File.Exists(path + ".before-0.5.0") && JObject.Parse(File.ReadAllText(path + ".before-0.5.0"))["Profiles"]!["formula"] != null,
             "migration keeps a dedicated snapshot of retired tuning");
+        string rebalancePath = Path.Combine(dir, "rebalance.json");
+        var prior = JObject.Parse(File.ReadAllText(path)); prior.Remove("StandardPresetRevision");
+        var oldStandard = prior["Profiles"]!["standard"]!["Settings"]!;
+        oldStandard["Texture"] = 1; oldStandard["AbsPunch"] = 1; oldStandard["DownshiftKick"] = .80;
+        oldStandard["TractionStrength"] = .40; oldStandard["ShiftKick"] = .80; oldStandard["SurfaceStrength"] = .30;
+        oldStandard["BrakeEngineTexture"] = .12;
+        File.WriteAllText(rebalancePath, prior.ToString());
+        using (var r = new ProfileRepository(rebalancePath)) {
+            r.SelectProfile(CarPresets.Standard); var s = r.Current();
+            check(s.Texture == .35 && s.AbsPunch == .70 && s.DownshiftKick == 1 && s.TractionStrength == .30 && s.ShiftKick == .65 && s.SurfaceStrength == .70 && s.BrakeEngineTexture == .12,
+                "existing Standard advances six old defaults without overwriting another tuned control");
+            s.ShiftKick = .80; r.Commit(s);
+        }
+        using (var r = new ProfileRepository(rebalancePath)) {
+            r.SelectProfile(CarPresets.Standard);
+            check(r.Current().ShiftKick == .80, "rebalance runs once and later edits survive restart");
+        }
         using (var engine = new NativeEngine()) {
             var s = new PedalFeelSettings { BrakeEngineTexture = .5, BrakeIdleTexture = .5, ThrottleStrength = 0 };
             engine.Configure(s);

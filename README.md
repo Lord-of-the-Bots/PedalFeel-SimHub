@@ -32,7 +32,7 @@ The pedal families in that entry are SimHub's device name, not a list of physica
 
 ## Install or update
 
-1. Download **PedalFeel-SimHub-0.5.0.zip** from the release assets and extract it. The **Source code** archives are not the installation package. Close SimHub for installation.
+1. Download **PedalFeel-SimHub-0.5.1.zip** from the release assets and extract it. The **Source code** archives are not the installation package. Close SimHub for installation.
 2. Run **Install.cmd**. If prompted, select `SimHubWPF.exe` in your SimHub folder.
 3. Start SimHub and open **Devices → Simagic Haptic Pedals Reactor → PedalFeel**. If the device is missing, first add it through **Devices → Add new device → Simagic Haptic Pedals Reactor**. Leave the device enabled.
 4. Enable **Automatically enable PedalFeel in iRacing**.
@@ -66,7 +66,7 @@ Selecting a profile alone applies it immediately for trying it out; it does not 
 
 There are two built-in starting profiles:
 
-- **Standard:** the current user-tuned starting point. Brake strength 60%, threshold 1.00, grip warning and ABS 100%, downshift and upshift 80%, rear grip 40%, engine/idle/limiter 25%, road 30%.
+- **Standard:** the current user-tuned starting point. Brake strength 60%, threshold 1.00, grip warning 35%, ABS 70%, downshift 100%, upshift 65%, rear grip 30%, engine/idle/limiter 25%, road 70%.
 - **Original GT3:** the integration's existing Balanced settings derived from PedalFeel 0.19.0. This retains the previous 20% upshift starting value and full original limiter/downshift coefficients; it is not a separate GT4 setup.
 
 **Create your own profile** copies Standard, Original GT3 or the selected profile. **Assign to current car** saves that association; it loads again when the car is selected. Cars without an assignment use Standard. **Delete profile** removes a custom profile, assigns Standard to all affected cars, and shows a notification. The two built-in profiles cannot be deleted; their settings remain editable.
