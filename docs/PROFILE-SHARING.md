@@ -6,7 +6,7 @@ Share settings you have actually driven with, including what remains weak, overw
 
 ## Include both settings sections
 
-1. **Feel in game:** show the selected profile and base, overall strength, and all brake, throttle and road settings. Use several screenshots if the page does not fit.
+1. **Feel in game:** show the selected profile and base, brake and throttle strength, and all brake, throttle and road settings. Use several screenshots if the page does not fit.
 2. **Pedal setup:** show all 16, 25, 35 and 50 Hz minimum/maximum values for every pedal you use, its physical channel and whether it is enabled.
 
 Effect percentages alone do not describe the motor output. Frequency calibration, actuator mounting and pedal stiffness can change the feel considerably. Include both sections even if the calibration is unchanged from the defaults.

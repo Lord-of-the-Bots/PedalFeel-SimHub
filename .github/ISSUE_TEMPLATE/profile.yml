@@ -33,7 +33,7 @@ body:
     id: effects
     attributes:
       label: Feel in game
-      description: Attach complete screenshots showing profile/base, overall strength and all brake, throttle and road settings. Several screenshots are fine.
+      description: Attach complete screenshots showing profile/base, brake and throttle strength and all brake, throttle and road settings. Several screenshots are fine.
     validations:
       required: true
   - type: textarea

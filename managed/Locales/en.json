@@ -324,5 +324,16 @@
   "Вернуть настройки основы": "Restore base settings",
   "Каналы общие для блока. Включение эффектов каждой педали сохраняется в выбранном профиле.": "Channels are shared by the controller. Each pedal’s effect enable setting is saved in the selected profile.",
   "Включите эффекты педали «{0}» для этого профиля в блоке ниже.": "Enable effects for the {0} pedal in this profile using the section below.",
-  "{0} · эффекты профиля": "{0} · profile effects"
+  "{0} · эффекты профиля": "{0} · profile effects",
+  "Стандартный": "Standard",
+  "Оригинальный GT3": "Original GT3",
+  "Удалить профиль": "Delete profile",
+  "Встроенный профиль нельзя удалить.": "Built-in profiles cannot be deleted.",
+  "Профиль удалён. Машинам назначен стандартный профиль: {0}.": "Profile deleted. Cars switched to Standard: {0}.",
+  "Сила эффектов газа": "Throttle effect strength",
+  "Общая сила всех эффектов на педали газа.": "Overall strength of all throttle pedal effects.",
+  "Вибрация двигателя на тормозе во время движения.": "Engine vibration on the brake pedal while driving.",
+  "Вибрация двигателя на тормозе на холостом ходу.": "Engine vibration on the brake pedal at idle.",
+  "Пример показывает умеренное срабатывание эффекта с вашими настройками. В заезде ощущения зависят от ситуации и других сигналов. Проверка частоты на 500 мс — прямой тест мотора.": "The example plays a moderate event using your settings. In a race, the situation and other signals affect how it feels. The 500 ms frequency check is a direct motor test.",
+  "Эффект выключен: увеличьте силу эффекта или соответствующей педали.": "Effect is off: increase its strength or the corresponding pedal strength."
 }

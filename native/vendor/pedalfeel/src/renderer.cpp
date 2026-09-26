@@ -92,6 +92,7 @@ HapticFrame mixSurfaceCue(const HapticFrame& base, const HapticFrame& surface) n
     case HapticMode::Locking:
     case HapticMode::Traction:
     case HapticMode::Limiter:
+    case HapticMode::Shift:
         return base;
     default:
         break;
@@ -173,7 +174,7 @@ HapticFrame BrakeRenderer::render(const VehicleState& state,
         downshiftTransient_ = 1.0;
     if (state.gear > 0)
         lastForwardGear_ = state.gear;
-    downshiftTransient_ = std::max(0.0, downshiftTransient_ - dt / .10);
+    downshiftTransient_ = std::max(0.0, downshiftTransient_ - dt / .16);
     HapticFrame result;
     // A restrained pressure foundation gives the driver a continuous path toward the threshold
     // cue without allowing cornering alone to vibrate the pedal.
@@ -260,7 +261,7 @@ HapticFrame ThrottleRenderer::render(const VehicleState& state, double tractionS
     if (state.gear > 0)
         lastForwardGear_ = state.gear;
     previousThrottleRaw_ = state.throttleRaw;
-    shiftTransient_ = std::max(0.0, shiftTransient_ - dt / .075);
+    shiftTransient_ = std::max(0.0, shiftTransient_ - dt / .16);
     const double idleRpm = std::max(300.0, state.idleRpm);
     const double rangeTop = std::max({idleRpm + 2500.0, state.redlineRpm, state.shiftRpm});
     const double rpmNormalized = clamp((state.engineRpm - idleRpm) / (rangeTop - idleRpm));
@@ -330,7 +331,7 @@ HapticFrame ThrottleRenderer::render(const VehicleState& state, double tractionS
     result.threshold = slipEnvelope_ * .48;
     result.abs = tractionEnvelope_ * .64;
     const double shiftLayer =
-        shiftTransient_ * .20 * clamp(shiftKick) * (1.0 - clamp(tractionCue * 1.5));
+        shiftTransient_ * .34 * clamp(shiftKick) * (1.0 - clamp(tractionCue * 1.5));
     result.lock = shiftLayer;
     const double tractionPulse = .78 + .22 * (.5 + .5 * std::sin(state.time * 75.0));
     const double tractionLayer =

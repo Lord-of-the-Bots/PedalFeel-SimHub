@@ -33,7 +33,7 @@ pedalfeel::VehicleState fixture(int32_t effect, double t) noexcept {
         s.tires[0].locking = s.tires[1].locking = s.tires[0].slipRatio > .18;
         break;
     case PF_PREVIEW_ABS:
-        s.absSeverity = .9 * envelope;
+        s.absSeverity = .5 * envelope;
         break;
     case PF_PREVIEW_DOWNSHIFT:
         s.gear = t < .15 ? 4 : 3;
@@ -41,12 +41,13 @@ pedalfeel::VehicleState fixture(int32_t effect, double t) noexcept {
         break;
     case PF_PREVIEW_TRACTION:
         s.throttle = s.throttleRaw = .9 * envelope;
-        s.rearSlipSeverity = .8 * envelope;
+        s.rearSlipSeverity = .4 * envelope;
         s.tires[2].spinRatio = s.tires[3].spinRatio = .18 * envelope;
         break;
+    case PF_PREVIEW_BRAKE_ENGINE:
     case PF_PREVIEW_ENGINE:
         s.throttle = s.throttleRaw = .8 * envelope;
-        s.engineRpm = 1800 + 6800 * smooth(t / 1.65);
+        s.engineRpm = 1800 + 4800 * smooth(t / 1.65);
         break;
     case PF_PREVIEW_LIMITER:
         s.throttle = s.throttleRaw = 1;
@@ -54,6 +55,7 @@ pedalfeel::VehicleState fixture(int32_t effect, double t) noexcept {
         s.engineWarningsAvailable = true;
         s.revLimiterActive = t >= .15 && t < 1.55;
         break;
+    case PF_PREVIEW_BRAKE_IDLE:
     case PF_PREVIEW_IDLE:
         s.engineRpm = 1100 + 2400 * smooth((t - 1.55) / .4);
         break;
@@ -64,11 +66,11 @@ pedalfeel::VehicleState fixture(int32_t effect, double t) noexcept {
         break;
     case PF_PREVIEW_SURFACE:
         s.surfaceTelemetryAvailable = true;
-        s.surfaceImpactSeverity = t >= .15 && t < .17 ? .8 : 0;
+        s.surfaceImpactSeverity = t >= .15 && t < .17 ? .45 : 0;
         break;
     case PF_PREVIEW_RUMBLE:
         s.rumbleStripTelemetryAvailable = true;
-        s.rumbleStripSeverity = .75 * envelope;
+        s.rumbleStripSeverity = .4 * envelope;
         s.rumbleStripFrequencyHz = 12 + 95 * smooth(t / 1.65);
         break;
     }
@@ -77,7 +79,7 @@ pedalfeel::VehicleState fixture(int32_t effect, double t) noexcept {
 }
 
 bool validPreviewEffect(int32_t effect) noexcept {
-    return effect >= PF_PREVIEW_BRAKE_LOADING && effect <= PF_PREVIEW_RUMBLE;
+    return effect >= PF_PREVIEW_BRAKE_LOADING && effect <= PF_PREVIEW_BRAKE_IDLE;
 }
 
 PfOutput preview(const PfConfig& config, int32_t effect, double elapsedSeconds) noexcept {
@@ -88,44 +90,29 @@ PfOutput preview(const PfConfig& config, int32_t effect, double elapsedSeconds) 
     output.session_time = elapsedSeconds;
     if (elapsedSeconds >= 2.0) return output;
     output.driving_active = 1;
-    pedalfeel::BrakeRenderer brakeRenderer;
-    pedalfeel::ThrottleRenderer throttleRenderer;
-    pedalfeel::SurfaceRenderer surfaceRenderer;
-    pedalfeel::HapticFrame brake{}, throttle{};
-    pedalfeel::RenderSettings brakeSettings{config.grip_threshold, config.brake_strength,
-        effect == PF_PREVIEW_THRESHOLD ? config.brake_texture : 0,
-        effect == PF_PREVIEW_ABS ? config.abs_punch : 0,
-        effect == PF_PREVIEW_DOWNSHIFT ? config.downshift_kick : 0};
+    // Isolate the requested cue, then use the exact live engine, pedal gains,
+    // priorities and physical calibration. No separate preview output formula.
+    auto c = config;
+    c.brake_texture = effect == PF_PREVIEW_THRESHOLD ? config.brake_texture : 0;
+    c.abs_punch = effect == PF_PREVIEW_ABS ? config.abs_punch : 0;
+    c.downshift_kick = effect == PF_PREVIEW_DOWNSHIFT ? config.downshift_kick : 0;
+    c.traction_strength = effect == PF_PREVIEW_TRACTION ? config.traction_strength : 0;
+    c.engine_texture = effect == PF_PREVIEW_ENGINE ? config.engine_texture : 0;
+    c.idle_texture = effect == PF_PREVIEW_IDLE ? config.idle_texture : 0;
+    c.shift_kick = effect == PF_PREVIEW_UPSHIFT ? config.shift_kick : 0;
+    c.limiter_strength = effect == PF_PREVIEW_LIMITER ? config.limiter_strength : 0;
+    c.surface_strength = effect == PF_PREVIEW_SURFACE || effect == PF_PREVIEW_RUMBLE ? config.surface_strength : 0;
+    c.brake_engine_texture = effect == PF_PREVIEW_BRAKE_ENGINE ? config.brake_engine_texture : 0;
+    c.brake_idle_texture = effect == PF_PREVIEW_BRAKE_IDLE ? config.brake_idle_texture : 0;
+    Engine engine;
+    engine.configure(c);
     const int lastFrame = static_cast<int>(std::floor(elapsedSeconds * 60.0 + 1e-9));
     for (int i = 0; i <= lastFrame; ++i) {
         const auto state = fixture(effect, i / 60.0);
-        if (effect <= PF_PREVIEW_DOWNSHIFT) {
-            brake = brakeRenderer.render(state, brakeSettings, effect == PF_PREVIEW_BRAKE_LOADING);
-        } else if (effect <= PF_PREVIEW_UPSHIFT) {
-            throttle = throttleRenderer.render(state,
-                effect == PF_PREVIEW_TRACTION ? config.traction_strength : 0,
-                effect == PF_PREVIEW_ENGINE ? config.engine_texture : 0,
-                effect == PF_PREVIEW_UPSHIFT ? config.shift_kick : 0,
-                effect == PF_PREVIEW_IDLE ? config.idle_texture : 0,
-                effect == PF_PREVIEW_LIMITER ? config.limiter_strength : 0);
-        } else {
-            const auto road = surfaceRenderer.render(state, config.surface_strength);
-            brake = road.brake;
-            throttle = road.throttle;
-        }
+        output = engine.update(true, true, state, 1.0 + i / 60.0, effect == PF_PREVIEW_BRAKE_LOADING);
     }
-    // Preview the chosen pedal(s) directly; an engine preview must not also feel
-    // like a brake test because live chassis crossfeed happened to be enabled.
-    if (!config.brake_enabled) brake = {};
-    if (!config.throttle_enabled) throttle = {};
-    output.brake_raw = brake.output;
-    output.throttle_raw = throttle.output;
-    output.brake_mode = static_cast<int32_t>(brake.mode);
-    output.throttle_mode = static_cast<int32_t>(throttle.mode);
-    physical(brake, config.effects_gain, config.brake_minimum, config.brake_maximum,
-             output.brake_hz, output.brake_intensity);
-    physical(throttle, config.effects_gain, config.throttle_minimum, config.throttle_maximum,
-             output.throttle_hz, output.throttle_intensity);
+    output.connected = 0; // Synthetic input must never appear as a live simulator.
+    output.session_time = elapsedSeconds;
     return output;
 }
 }

@@ -89,10 +89,9 @@ namespace PedalFeel.SimHub
                 data.GamePaused || data.GameReplay || (data.NewData?.Spectating ?? false));
             string key = ProfileRepository.CarKey(data.GameName, data.NewData?.CarId, data.NewData?.CarModel);
             bool available = data.GameRunning && !data.GameReplay && !(data.NewData?.Spectating ?? false) && key != ProfileRepository.DefaultKey;
-            bool availabilityChanged = currentCarAvailable != available;
             currentCarAvailable = available;
             // Transient empty frames while loading the same sim must not overwrite the current car profile.
-            if (key == ProfileRepository.DefaultKey) { if (availabilityChanged) RebindPanel(); return; }
+            if (key == ProfileRepository.DefaultKey) return;
             // A new session in the same car must load its assignment, even if the
             // user tried a different profile temporarily during the last session.
             if (restoreAssignment && iracingRunning) {
@@ -102,7 +101,7 @@ namespace PedalFeel.SimHub
             if (profiles.SelectCar(data.GameName, data.NewData?.CarId, data.NewData?.CarModel)) {
                 controller.Configure(profiles.Current(), resetTelemetry: true);
                 RebindPanel();
-            } else if (availabilityChanged) RebindPanel();
+            }
         }
         public override Control CreateSettingControl()
         {
@@ -117,7 +116,7 @@ namespace PedalFeel.SimHub
                         () => profiles?.Describe(panelKey, panelName) ?? "", CarPresets.Options, ApplyPreset, PresentationStatus,
                         previewEffect: RequestPreview, stopPreview: StopPreview,
                         profileState: GetProfileState, selectProfile: SelectProfile,
-                        createProfile: CreateProfile, assignProfile: AssignProfile, clearAssignment: ClearAssignment);
+                        createProfile: CreateProfile, assignProfile: AssignProfile, clearAssignment: ClearAssignment, deleteProfile: DeleteProfile);
                 }
                 return panel;
             }
@@ -149,9 +148,10 @@ namespace PedalFeel.SimHub
                 if (ended || profiles == null) return;
                 // The edit belongs to the profile displayed by this panel, even if a car
                 // change has queued (but not yet executed) a UI rebind.
+                bool modeChanged = profiles.Current().Enabled != panelSettings.Enabled;
                 profiles.CommitProfile(panelProfileId, panelSettings);
                 controller?.Configure(profiles.Current());
-                adapter?.Refresh();
+                if (modeChanged) adapter?.Refresh();
             }
         }
         private void RequestPreview(EffectPreviewKind effect)
@@ -199,6 +199,15 @@ namespace PedalFeel.SimHub
                 EnsureDisplayedProfileCurrent(assignCurrent);
                 profiles!.CreateProfile(name, basisId, assignCurrent);
                 controller?.Configure(profiles.Current()); adapter?.Refresh(); RebindPanel();
+            }
+        }
+        private int DeleteProfile()
+        {
+            lock (sync) {
+                EnsureDisplayedProfileCurrent();
+                int affected = profiles!.DeleteProfile(panelProfileId);
+                controller?.Configure(profiles.Current()); adapter?.Refresh(); RebindPanel();
+                return affected;
             }
         }
         private void AssignProfile()
