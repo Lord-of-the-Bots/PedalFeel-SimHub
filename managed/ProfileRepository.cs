@@ -31,6 +31,7 @@ namespace PedalFeel.SimHub
     {
         public int SchemaVersion { get; set; } = 1;
         public int TuningRevision { get; set; }
+        public int StandardPresetRevision { get; set; }
         public PedalFeelSettings Device { get; set; } = new PedalFeelSettings();
         public Dictionary<string, PedalFeelSettings> Cars { get; set; } = new Dictionary<string, PedalFeelSettings>();
         public Dictionary<string, string> CarNames { get; set; } = new Dictionary<string, string>();
@@ -85,7 +86,7 @@ namespace PedalFeel.SimHub
         }
         private static ProfileCatalog FreshCatalog()
         {
-            var result = new ProfileCatalog { SchemaVersion = 3, TuningRevision = CurrentTuningRevision };
+            var result = new ProfileCatalog { SchemaVersion = 3, StandardPresetRevision = 1, TuningRevision = CurrentTuningRevision };
             AddSeeds(result); return result;
         }
         private static void AddSeeds(ProfileCatalog result)
@@ -158,6 +159,20 @@ namespace PedalFeel.SimHub
                 profile.Settings.Normalize();
             }
             if (!result.Profiles.ContainsKey(CarPresets.Standard) || !result.Profiles.ContainsKey(CarPresets.AuthorBalanced)) { AddSeeds(result); changed = true; }
+            if (result.StandardPresetRevision < 1) {
+                var standard = result.Profiles[CarPresets.Standard];
+                if (standard.BasisId == CarPresets.Standard) {
+                    // Advance unchanged old defaults once; preserve personal tuning and copies.
+                    var tuning = standard.Settings;
+                    if (Math.Abs(tuning.Texture - 1) < .000001) tuning.Texture = .35;
+                    if (Math.Abs(tuning.AbsPunch - 1) < .000001) tuning.AbsPunch = .70;
+                    if (Math.Abs(tuning.DownshiftKick - .80) < .000001) tuning.DownshiftKick = 1;
+                    if (Math.Abs(tuning.TractionStrength - .40) < .000001) tuning.TractionStrength = .30;
+                    if (Math.Abs(tuning.ShiftKick - .80) < .000001) tuning.ShiftKick = .65;
+                    if (Math.Abs(tuning.SurfaceStrength - .30) < .000001) tuning.SurfaceStrength = .70;
+                }
+                result.StandardPresetRevision = 1; changed = true;
+            }
             if (!result.Profiles.ContainsKey(result.SelectedProfileId ?? "")) { result.SelectedProfileId = CarPresets.Standard; changed = true; }
             foreach (var pair in result.CarAssignments.ToArray())
                 if (string.IsNullOrEmpty(pair.Value) || !result.Profiles.ContainsKey(pair.Value)) {

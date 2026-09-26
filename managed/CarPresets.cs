@@ -64,9 +64,9 @@ namespace PedalFeel.SimHub
             // common gain and 20% upshift cap apply to all new named profiles.
             PedalFeelSettings settings;
             switch (id) {
-                case Standard: return new PedalFeelSettings { GripThreshold = 1, Strength = .60, Texture = 1, AbsPunch = 1,
-                    DownshiftKick = .80, TractionStrength = .40, EngineTexture = .25, LimiterStrength = .25,
-                    IdleTexture = .25, ShiftKick = .80, SurfaceStrength = .30 };
+                case Standard: return new PedalFeelSettings { GripThreshold = 1, Strength = .60, Texture = .35, AbsPunch = .70,
+                    DownshiftKick = 1, TractionStrength = .30, EngineTexture = .25, LimiterStrength = .25,
+                    IdleTexture = .25, ShiftKick = .65, SurfaceStrength = .70 };
                 case AuthorBalanced:
                     settings = new PedalFeelSettings { GripThreshold = .91, Strength = .70, Texture = .62,
                         AbsPunch = .72, TractionStrength = .65, EngineTexture = .48, IdleTexture = .28, ShiftKick = .45 };
