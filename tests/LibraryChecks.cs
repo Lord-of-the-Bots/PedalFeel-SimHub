@@ -13,11 +13,11 @@ internal static class LibraryChecks
         string a = "", copy = "";
         using (var profiles = new ProfileRepository(file)) {
             var initial = profiles.PanelState();
-            check(initial.Profiles.Count == 4 && initial.Bases.Count == 5 && initial.SelectedId == "author-balanced" &&
+            check(initial.Profiles.Count == 2 && initial.Bases.Count == 3 && initial.SelectedId == "standard" &&
                 initial.AssignedId == "" && !initial.CanAssign, "a fresh library offers author bases and Formula without a guessed assignment");
             check(Rejects(() => profiles.AssignCurrentProfile()) && Rejects(() => profiles.ClearCurrentAssignment()),
                 "assignment commands require a real current iRacing car");
-            check(Rejects(() => profiles.CreateProfile("No car", "formula", true)) && profiles.PanelState().Profiles.Count == 4,
+            check(Rejects(() => profiles.CreateProfile("No car", "formula", true)) && profiles.PanelState().Profiles.Count == 2,
                 "failed create-and-assign does not leave a half-created profile");
             check(Rejects(() => profiles.CreateProfile("  ", "formula", false)) &&
                 Rejects(() => profiles.CreateProfile(new string('x', 81), "formula", false)) &&
@@ -34,8 +34,8 @@ internal static class LibraryChecks
                 "creating a profile trims its name and assigns only when explicitly requested");
             check(Rejects(() => profiles.CreateProfile("my gt3", "formula", false)), "case-insensitive duplicate names are refused");
             profiles.SelectCar("IRacing", "car-b", "Second car");
-            check(profiles.CurrentProfileId == "author-balanced" && profiles.PanelState().AssignedId == "" &&
-                profiles.Current().Strength == .70 && profiles.Current().EffectsGain == CarPresets.CreateBasis("author-balanced").EffectsGain,
+            check(profiles.CurrentProfileId == "standard" && profiles.PanelState().AssignedId == "" &&
+                profiles.Current().Strength == .60 && profiles.Current().EffectsGain == CarPresets.CreateBasis("author-balanced").EffectsGain,
                 "an unassigned car loads the author baseline rather than the previous car's profile or gain");
             check(profiles.Current().Enabled && profiles.Current().BrakeMaximum[0] == 47 && profiles.Current().BrakeMinimum[0] == 4,
                 "mode and frequency calibration remain shared between independently tuned profiles");
@@ -51,7 +51,7 @@ internal static class LibraryChecks
             profiles.SelectCar("IRacing", "car-a", "First car");
             check(profiles.CurrentProfileId == a && profiles.Current().EffectsGain == 2.8,
                 "two explicitly assigned cars share the same named profile and subsequent edits");
-            profiles.SelectProfile("author-subtle"); profiles.Select(ProfileRepository.DefaultKey, null);
+            profiles.SelectProfile("author-balanced"); profiles.Select(ProfileRepository.DefaultKey, null);
             profiles.SelectCar("IRacing", "car-a", "First car");
             check(profiles.CurrentProfileId == a, "an explicit session boundary reloads the same car's assigned profile");
             copy = profiles.CreateProfile("Independent copy", "current", false);
@@ -65,7 +65,7 @@ internal static class LibraryChecks
             check(profiles.CurrentProfileId == copy && profiles.Current().EffectsGain == .9 && profiles.Current().Strength == .31,
                 "a delayed commit targets its captured profile ID without overwriting the new selection");
             profiles.SelectCar("IRacing", "car-c", "Third car");
-            check(profiles.CurrentProfileId == "author-balanced", "changing to another unassigned car discards only the temporary selection");
+            check(profiles.CurrentProfileId == "standard", "changing to another unassigned car discards only the temporary selection");
             profiles.SelectProfile(copy); profiles.AssignCurrentProfile();
             settings = profiles.Current(); settings.BrakeMaximum[0] = 58; profiles.CommitProfile(copy, settings);
             profiles.SelectCar("IRacing", "car-a", "First car");
@@ -81,10 +81,10 @@ internal static class LibraryChecks
             check(profiles.CurrentProfileId == copy && profiles.Current().EffectsGain == .9 && profiles.Current().LimiterStrength == .12,
                 "another car reloads its distinct persisted profile and gain");
             profiles.ClearCurrentAssignment();
-            check(profiles.PanelState().AssignedId == "" && profiles.CurrentProfileId == "author-balanced",
+            check(profiles.PanelState().AssignedId == "" && profiles.CurrentProfileId == "standard",
                 "clearing an assignment immediately restores the unassigned author baseline");
             profiles.SelectCar("IRacing", "car-a", "First car"); profiles.SelectCar("IRacing", "car-c", "Third car");
-            check(profiles.CurrentProfileId == "author-balanced", "a removed assignment stays removed across car changes");
+            check(profiles.CurrentProfileId == "standard", "a removed assignment stays removed across car changes");
         }
         Aliases(Path.Combine(directory, "aliases.json"), check);
         Migration(Path.Combine(directory, "legacy.json"), check);
@@ -94,9 +94,9 @@ internal static class LibraryChecks
         using (var profiles = new ProfileRepository(file)) {
             profiles.SelectCar("IRacing", null, "New model");
             string assigned = profiles.CreateProfile("Model profile", "formula", true);
-            profiles.SelectProfile("author-subtle");
+            profiles.SelectProfile("author-balanced");
             profiles.SelectCar("IRacing", "stable-id", "New model");
-            check(profiles.PanelState().AssignedId == assigned && profiles.CurrentProfileId == "author-subtle",
+            check(profiles.PanelState().AssignedId == assigned && profiles.CurrentProfileId == "author-balanced",
                 "a model gaining a stable ID retains its assignment and current temporary selection");
             profiles.SelectCar("IRacing", "another", "Other"); profiles.SelectCar("IRacing", null, "New model");
             check(profiles.CurrentKey == "iracing|id:stable-id" && profiles.CurrentProfileId == assigned,
@@ -104,7 +104,7 @@ internal static class LibraryChecks
             profiles.ClearCurrentAssignment();
             profiles.SelectCar("IRacing", "stable-id", "New model");
             profiles.SelectCar("IRacing", null, "New model");
-            check(profiles.PanelState().AssignedId == "" && profiles.CurrentProfileId == "author-balanced",
+            check(profiles.PanelState().AssignedId == "" && profiles.CurrentProfileId == "standard",
                 "clearing the stable assignment cannot resurrect its old provisional model assignment");
             profiles.SelectCar("AssettoCorsa", "stable-id", "New model");
             check(!profiles.PanelState().CanAssign && profiles.CurrentKey == ProfileRepository.DefaultKey,
@@ -129,41 +129,41 @@ internal static class LibraryChecks
         File.WriteAllText(file, legacy.ToString());
         string a;
         using (var profiles = new ProfileRepository(file)) {
-            check(profiles.Current().EffectsGain == 1.7 && profiles.CurrentProfileId != "author-balanced",
+            check(profiles.Current().EffectsGain == 2.1 && profiles.CurrentProfileId != "author-balanced",
                 "an old no-car global gain is retained in its own imported baseline profile");
             profiles.SelectCar("IRacing", "new-car", "New car after upgrade");
-            check(profiles.CurrentProfileId == "author-balanced" && profiles.Current().EffectsGain == 2.1,
+            check(profiles.CurrentProfileId == "standard" && profiles.Current().EffectsGain == 2.1,
                 "a newly discovered unassigned car uses the new author baseline instead of an old device-wide gain");
             profiles.SelectCar("IRacing", "a", "Same car name"); a = profiles.CurrentProfileId;
             var first = profiles.Current();
-            check(first.Strength == .31 && first.ShiftKick == .65 && first.LimiterStrength == 0 && first.DownshiftKick == .12 && first.EffectsGain == 1.7,
+            check(first.Strength == .31 && first.ShiftKick == .65 && first.LimiterStrength == 0 && first.DownshiftKick == .12 && first.EffectsGain == 2.1,
                 "0.3.4 migration preserves each saved effect and imports the effective global gain instead of stale per-car copies");
             check(first.Enabled && first.BrakeChannel == 0 && first.ThrottleChannel == 2 && first.BrakeMaximum[2] == 53,
                 "library migration retains shared hardware calibration, channels and mode");
             profiles.SelectCar("IRacing", "b", "Same car name");
-            check(profiles.CurrentProfileId != a && profiles.Current().Strength == .74 && profiles.Current().EffectsGain == 1.7,
+            check(profiles.CurrentProfileId != a && profiles.Current().Strength == .74 && profiles.Current().EffectsGain == 2.1,
                 "legacy cars with duplicate display names become separate named profiles without merging tuning");
             check(profiles.PanelState().Profiles.Select(p => p.Value).Distinct(StringComparer.OrdinalIgnoreCase).Count() == profiles.PanelState().Profiles.Count,
                 "migration gives duplicate legacy names distinct readable suffixes");
             var second = profiles.Current(); second.EffectsGain = 2.6; profiles.CommitProfile(profiles.CurrentProfileId, second);
             profiles.SelectCar("IRacing", null, "Alias A");
-            check(profiles.CurrentProfileId == a && profiles.Current().EffectsGain == 1.7,
+            check(profiles.CurrentProfileId == a && profiles.Current().EffectsGain == 2.1,
                 "migrated aliases retain their assignments and later gains are profile-specific");
             profiles.ClearCurrentAssignment(); profiles.SelectCar("IRacing", "a", "Alias A");
             check(profiles.PanelState().AssignedId == "",
                 "a legacy provisional model assignment cannot resurrect a cleared stable assignment after import");
             profiles.SelectProfile(a); profiles.AssignCurrentProfile();
         }
-        check((int)JObject.Parse(File.ReadAllText(file))["SchemaVersion"]! == 2, "library import is persisted as schema two");
+        check((int)JObject.Parse(File.ReadAllText(file))["SchemaVersion"]! == 3, "library import is persisted as schema two");
         using (var profiles = new ProfileRepository(file)) {
             profiles.SelectCar("IRacing", "a", "Same car name");
-            check(profiles.CurrentProfileId == a && profiles.Current().ShiftKick == .65 && profiles.Current().EffectsGain == 1.7,
+            check(profiles.CurrentProfileId == a && profiles.Current().ShiftKick == .65 && profiles.Current().EffectsGain == 2.1,
                 "reopening a migrated library does not repeat import or reset saved tuning");
         }
         var ordinary = (JObject)legacy.DeepClone(); ordinary["Device"]!["EffectsGain"] = 2.1;
         string ordinaryFile = file + ".ordinary.json"; File.WriteAllText(ordinaryFile, ordinary.ToString());
         using (var profiles = new ProfileRepository(ordinaryFile))
-            check(profiles.CurrentProfileId == "author-balanced" && profiles.PanelState().Profiles.Count == 7,
+            check(profiles.CurrentProfileId == "standard" && profiles.PanelState().Profiles.Count == 5,
                 "migration avoids an unnecessary extra baseline when the old global gain already equals new x1");
     }
     private static bool Rejects(Action action)

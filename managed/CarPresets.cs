@@ -50,12 +50,11 @@ namespace PedalFeel.SimHub
     internal static class CarPresets
     {
         public const int Revision = 2;
+        public const string Standard = "standard";
         public const string AuthorBalanced = "author-balanced";
         public static readonly KeyValuePair<string, string>[] Bases = {
-            new KeyValuePair<string, string>(AuthorBalanced, "Авторский GT3 Balanced"),
-            new KeyValuePair<string, string>("author-subtle", "Авторский GT3 Subtle"),
-            new KeyValuePair<string, string>("author-aggressive", "Авторский GT3 Aggressive"),
-            new KeyValuePair<string, string>("formula", "Формулы · настройки 0.3.4"),
+            new KeyValuePair<string, string>(Standard, "Стандартный"),
+            new KeyValuePair<string, string>(AuthorBalanced, "Оригинальный GT3"),
             new KeyValuePair<string, string>("current", "Копия выбранного профиля")
         };
         public static string BasisLabel(string id) => Bases.FirstOrDefault(p => p.Key == id).Value ?? id;
@@ -65,6 +64,9 @@ namespace PedalFeel.SimHub
             // common gain and 20% upshift cap apply to all new named profiles.
             PedalFeelSettings settings;
             switch (id) {
+                case Standard: return new PedalFeelSettings { GripThreshold = 1, Strength = .60, Texture = 1, AbsPunch = 1,
+                    DownshiftKick = .80, TractionStrength = .40, EngineTexture = .25, LimiterStrength = .25,
+                    IdleTexture = .25, ShiftKick = .80, SurfaceStrength = .30 };
                 case AuthorBalanced:
                     settings = new PedalFeelSettings { GripThreshold = .91, Strength = .70, Texture = .62,
                         AbsPunch = .72, TractionStrength = .65, EngineTexture = .48, IdleTexture = .28, ShiftKick = .45 };

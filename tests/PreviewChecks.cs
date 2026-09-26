@@ -77,7 +77,7 @@ internal static class PreviewChecks
     private static void Native(Action<bool, string> check)
     {
         using (var engine = new NativeEngine()) {
-            var settings = new PedalFeelSettings(); engine.Configure(settings);
+            var settings = new PedalFeelSettings { BrakeEngineTexture = .25, BrakeIdleTexture = .25 }; engine.Configure(settings);
             foreach (EffectPreviewKind effect in Enum.GetValues(typeof(EffectPreviewKind))) {
                 bool felt = false;
                 for (int i = 0; i < 120; ++i) {

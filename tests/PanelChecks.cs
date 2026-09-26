@@ -65,13 +65,13 @@ public static class PanelChecks
                 check(stops == 1 && !settings.Enabled, "stop control returns through the explicit stop callback");
                 Click(Find<ToggleButton>(panel, "AutoEnable"));
 
-                var effectsGain = Find<Slider>(panel, "EffectsGain");
+                var effectsGain = Find<Slider>(panel, "ThrottleStrength");
                 int beforeGain = changes;
                 check(Near(effectsGain.Value, 1) && Near(settings.EffectsGain, 2.1),
                     "the new 1x baseline retains the former 0.7x strength internally");
                 effectsGain.Value = .5;
-                check(Near(effectsGain.Minimum, 0) && Near(effectsGain.Maximum, 2) && Near(effectsGain.TickFrequency, .1) &&
-                    Near(settings.EffectsGain, 1.05) && Near(saved.EffectsGain, 1.05) && changes == beforeGain + 1 && tests == 0 && !controller.Active,
+                check(Near(effectsGain.Minimum, 0) && Near(effectsGain.Maximum, 1) && Near(effectsGain.TickFrequency, .01) &&
+                    Near(settings.ThrottleStrength, .5) && Near(saved.ThrottleStrength, .5) && changes == beforeGain + 1 && tests == 0 && !controller.Active,
                     "displayed 0.5x saves internal gain 1.05 immediately without starting vibration");
 
                 var limiter = Find<Slider>(panel, "LimiterStrength");
@@ -226,23 +226,23 @@ public static class PanelChecks
 
                 int beforeRebind = changes, testsBeforeRebind = tests;
                 var staleSlider = Find<Slider>(panel, "BrakeMinimum0");
-                var staleGain = Find<Slider>(panel, "EffectsGain");
+                var staleGain = Find<Slider>(panel, "ThrottleStrength");
                 var staleLimiter = Find<Slider>(panel, "LimiterStrength");
                 var staleDownshift = Find<Slider>(panel, "DownshiftKick");
                 var staleRowTest = Find<Button>(panel, "BrakeMinimumTest0");
                 car = "BMW M4 GT3 EVO";
-                current = settings.Clone(); current.Strength = .83; current.BrakeMinimum[0] = 14; current.EffectsGain = 1.68;
+                current = settings.Clone(); current.Strength = .83; current.BrakeMinimum[0] = 14; current.ThrottleStrength = .8;
                 current.LimiterStrength = .13; current.DownshiftKick = .17;
                 controller.Configure(current); panel.Rebind(current); Layout(host); Pump(25);
                 staleSlider.Value = 16; staleGain.Value = 1.9; staleLimiter.Value = .81; staleDownshift.Value = .82; Click(staleRowTest);
                 check(Near(current.BrakeMinimum[0], 14) && Near(settings.BrakeMinimum[0], 10) &&
-                    Near(current.EffectsGain, 1.68) && Near(settings.EffectsGain, 1.05) &&
+                    Near(current.ThrottleStrength, .8) && Near(settings.ThrottleStrength, .5) &&
                     Near(current.LimiterStrength, .13) && Near(current.DownshiftKick, .17) &&
                     Near(settings.LimiterStrength, .67) && Near(settings.DownshiftKick, .56) &&
                     changes == beforeRebind && tests == testsBeforeRebind,
                     "events from old calibration/gain sliders and row buttons cannot modify or actuate rebound settings");
                 check(Near(Find<Slider>(panel, "BrakeMinimum0").Value, 14) &&
-                    Near(Find<Slider>(panel, "ThrottleMaximum3").Value, 63) && Near(Find<Slider>(panel, "EffectsGain").Value, .8) &&
+                    Near(Find<Slider>(panel, "ThrottleMaximum3").Value, 63) && Near(Find<Slider>(panel, "ThrottleStrength").Value, .8) &&
                     changes == beforeRebind && presetApplications == 0,
                     "rebind shows the current saved calibration immediately without pending drafts or implicit saves");
                 check(Find<TabControl>(panel, "MainSections").SelectedIndex == 1 &&
@@ -271,7 +271,7 @@ public static class PanelChecks
                 int changesBeforeLanguage = changes, testsBeforeLanguage = tests;
                 var calibrationBeforeLanguage = current.Clone();
                 var staleLanguageSlider = Find<Slider>(panel, "BrakeMinimum0");
-                var staleLanguageGain = Find<Slider>(panel, "EffectsGain");
+                var staleLanguageGain = Find<Slider>(panel, "ThrottleStrength");
                 var staleLanguageLimiter = Find<Slider>(panel, "LimiterStrength");
                 var staleLanguageDownshift = Find<Slider>(panel, "DownshiftKick");
                 var staleLanguageRow = Find<Button>(panel, "BrakeMinimumTest0");
@@ -282,13 +282,13 @@ public static class PanelChecks
                 check(Find<TabControl>(panel, "MainSections").SelectedIndex == 1 &&
                     Find<ComboBox>(panel, "TestPedal").SelectedIndex == 1 &&
                     Near(Find<Slider>(panel, "BrakeMinimum0").Value, 15) &&
-                    Near(Find<Slider>(panel, "EffectsGain").Value, .8) &&
+                    Near(Find<Slider>(panel, "ThrottleStrength").Value, .8) &&
                     Near(Find<Slider>(panel, "LimiterStrength").Value, .46) && Near(Find<Slider>(panel, "DownshiftKick").Value, .47) &&
                     SameCalibration(current, calibrationBeforeLanguage) &&
                     changes == changesBeforeLanguage && tests == testsBeforeLanguage,
                     "language changes retain navigation, selected pedal and saved calibration without output or extra saves");
                 staleLanguageSlider.Value = 17; staleLanguageGain.Value = 1.5; staleLanguageLimiter.Value = .82; staleLanguageDownshift.Value = .83; Click(staleLanguageRow);
-                check(changes == changesBeforeLanguage && tests == testsBeforeLanguage && Near(current.BrakeMinimum[0], 15) && Near(current.EffectsGain, 1.68) &&
+                check(changes == changesBeforeLanguage && tests == testsBeforeLanguage && Near(current.BrakeMinimum[0], 15) && Near(current.ThrottleStrength, .8) &&
                     Near(current.LimiterStrength, .46) && Near(current.DownshiftKick, .47),
                     "events from controls replaced by a language change cannot alter calibration or request output");
                 L10n.OverrideCulture = "ru-RU"; Pump(650);

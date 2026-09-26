@@ -13,6 +13,9 @@ namespace PedalFeel.SimHub
         public int ThrottleChannel { get; set; } = 2;
         public double EffectsGain { get; set; } = BaseEffectsGain;
         public double GripThreshold { get; set; } = .91;
+        public double ThrottleStrength { get; set; } = 1;
+        public double BrakeEngineTexture { get; set; } = 0;
+        public double BrakeIdleTexture { get; set; } = 0;
         public double Strength { get; set; } = .70;
         public double Texture { get; set; } = .62;
         public double AbsPunch { get; set; } = .72;
@@ -45,6 +48,9 @@ namespace PedalFeel.SimHub
             EffectsGain = Clamp(EffectsGain, 0, BaseEffectsGain * 2, BaseEffectsGain);
             // A duplicate mapping is refused by the UI/controller, never silently reassigned.
             GripThreshold = Clamp(GripThreshold, .75, 1.05, .91);
+            ThrottleStrength = Clamp(ThrottleStrength, 0, 1, 1);
+            BrakeEngineTexture = Clamp(BrakeEngineTexture, 0, 1, 0);
+            BrakeIdleTexture = Clamp(BrakeIdleTexture, 0, 1, 0);
             Strength = Clamp(Strength, 0, 1, .70);
             Texture = Clamp(Texture, 0, 1, .62);
             AbsPunch = Clamp(AbsPunch, 0, 1, .72);

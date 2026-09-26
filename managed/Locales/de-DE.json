@@ -324,5 +324,16 @@
   "Вернуть настройки основы": "Vorlageneinstellungen wiederherstellen",
   "Каналы общие для блока. Включение эффектов каждой педали сохраняется в выбранном профиле.": "Die Kanäle gelten für den gesamten Controller. Die Aktivierung der Effekte jeder Pedale wird im ausgewählten Profil gespeichert.",
   "Включите эффекты педали «{0}» для этого профиля в блоке ниже.": "Aktivieren Sie die Effekte der Pedale „{0}“ für dieses Profil im Bereich unten.",
-  "{0} · эффекты профиля": "{0} · Profileffekte"
+  "{0} · эффекты профиля": "{0} · Profileffekte",
+  "Стандартный": "Standard",
+  "Оригинальный GT3": "Original GT3",
+  "Удалить профиль": "Profil löschen",
+  "Встроенный профиль нельзя удалить.": "Integrierte Profile können nicht gelöscht werden.",
+  "Профиль удалён. Машинам назначен стандартный профиль: {0}.": "Profil gelöscht. Auf Standard umgestellte Autos: {0}.",
+  "Сила эффектов газа": "Effektstärke am Gaspedal",
+  "Общая сила всех эффектов на педали газа.": "Gesamtstärke aller Effekte am Gaspedal.",
+  "Вибрация двигателя на тормозе во время движения.": "Motorvibration am Bremspedal während der Fahrt.",
+  "Вибрация двигателя на тормозе на холостом ходу.": "Motorvibration am Bremspedal im Leerlauf.",
+  "Пример показывает умеренное срабатывание эффекта с вашими настройками. В заезде ощущения зависят от ситуации и других сигналов. Проверка частоты на 500 мс — прямой тест мотора.": "Das Beispiel spielt ein moderates Ereignis mit Ihren Einstellungen. Im Rennen beeinflussen Situation und andere Signale das Gefühl. Der 500-ms-Frequenztest prüft den Motor direkt.",
+  "Эффект выключен: увеличьте силу эффекта или соответствующей педали.": "Effekt ausgeschaltet: Erhöhen Sie seine Stärke oder die Stärke des zugehörigen Pedals."
 }

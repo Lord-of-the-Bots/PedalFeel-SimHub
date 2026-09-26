@@ -38,7 +38,7 @@ PfConfig isolate(const PfConfig& c, int effect) {
     z.idle_texture = effect == PF_PREVIEW_IDLE ? c.idle_texture : 0;
     z.shift_kick = effect == PF_PREVIEW_UPSHIFT ? c.shift_kick : 0;
     z.surface_strength = effect >= PF_PREVIEW_SURFACE ? c.surface_strength : 0;
-    if (effect > PF_PREVIEW_DOWNSHIFT) z.brake_strength = 0;
+    if (effect > PF_PREVIEW_DOWNSHIFT && effect < PF_PREVIEW_SURFACE) z.brake_strength = 0;
     return z;
 }
 void disable(PfConfig& c, int effect) {
@@ -94,7 +94,7 @@ void directRendererChecks() {
             downshift.render(s, {.91, c.brake_strength, 0, 0, c.downshift_kick}), c, true);
         s = {};
         s.time = 1+t;
-        s.absSeverity = .9 * envelope;
+        s.absSeverity = .5 * envelope;
         comparePhysical(run(c, PF_PREVIEW_ABS, t),
             abs.render(s, {.91, c.brake_strength, 0, c.abs_punch, 0}), c, true);
         s = {};
@@ -113,13 +113,14 @@ void directRendererChecks() {
         s.time = 1+t;
         s.gear = 3;
         s.throttle = s.throttleRaw = .8 * envelope;
-        s.engineRpm = 1800+6800*smooth(t/1.65);
+        s.engineRpm = 1800+4800*smooth(t/1.65);
         comparePhysical(run(c, PF_PREVIEW_ENGINE, t), engine.render(s, 0, c.engine_texture, 0, 0, 0), c, false);
         s = {};
         s.time = 1+t;
         s.surfaceTelemetryAvailable = true;
-        s.surfaceImpactSeverity = t >= .15 && t < .17 ? .8 : 0;
-        const auto bump = road.render(s, c.surface_strength);
+        s.surfaceImpactSeverity = t >= .15 && t < .17 ? .45 : 0;
+        auto bump = road.render(s, c.surface_strength);
+        bump.brake.output *= c.brake_strength;
         const auto result = run(c, PF_PREVIEW_SURFACE, t);
         comparePhysical(result, bump.brake, c, true);
         comparePhysical(result, bump.throttle, c, false);
@@ -231,7 +232,7 @@ int main() {
     };
     rejects(nullptr, PF_PREVIEW_ENGINE, 0, sentinel);
     rejects(&c, -1, 0, sentinel);
-    rejects(&c, 12, 0, sentinel);
+    rejects(&c, 14, 0, sentinel);
     for (double t : {-.001, std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity()})
         rejects(&c, PF_PREVIEW_ENGINE, t, sentinel);
     auto invalid = c;

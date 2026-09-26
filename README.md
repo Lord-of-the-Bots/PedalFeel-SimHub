@@ -32,7 +32,7 @@ The pedal families in that entry are SimHub's device name, not a list of physica
 
 ## Install or update
 
-1. Download **PedalFeel-SimHub-0.4.0.zip** from the release assets and extract it. The **Source code** archives are not the installation package. Close SimHub for installation.
+1. Download **PedalFeel-SimHub-0.5.0.zip** from the release assets and extract it. The **Source code** archives are not the installation package. Close SimHub for installation.
 2. Run **Install.cmd**. If prompted, select `SimHubWPF.exe` in your SimHub folder.
 3. Start SimHub and open **Devices → Simagic Haptic Pedals Reactor → PedalFeel**. If the device is missing, first add it through **Devices → Add new device → Simagic Haptic Pedals Reactor**. Leave the device enabled.
 4. Enable **Automatically enable PedalFeel in iRacing**.
@@ -62,32 +62,34 @@ Use **Feel in game** to select a profile and change its effects. The current car
 3. To assign an existing profile, select it and choose **Assign to current car**. It loads when that car is selected again, including a new session in the same car.
 4. Adjust the sliders. Changes save automatically to the selected profile. Every car assigned to that profile uses those changes.
 
-Selecting a profile alone applies it immediately for trying it out; it does not replace the car's saved assignment. Create a **Copy of the selected profile** before making changes that should affect only one car. A copy has independent settings. **Remove assignment** keeps the profile in your library and returns that car to Original GT3 Balanced. **Restore base settings** resets the selected profile to its base and affects all cars sharing it.
+Selecting a profile alone applies it immediately for trying it out; it does not replace the car's saved assignment. Create a **Copy of the selected profile** before making changes that should affect only one car. A copy has independent settings. **Remove assignment** keeps the profile in your library and returns that car to Standard. **Restore base settings** resets the selected profile to its base and affects all cars sharing it.
 
-There are two starting families:
+There are two built-in starting profiles:
 
-- **Original GT3:** Balanced, Subtle and Aggressive, based on the author's PedalFeel 0.19.0 settings. New bases use the integration's ×1 overall strength and a 20% upshift default; the other original effect coefficients are retained. That source version has no separate original GT4 preset.
-- **Formula cars:** a provisional starting point based on user feedback, with upshift, downshift and limiter at 20%. It has not been validated across all formula cars and is not a separate formula tyre model.
+- **Standard:** the current user-tuned starting point. Brake strength 60%, threshold 1.00, grip warning and ABS 100%, downshift and upshift 80%, rear grip 40%, engine/idle/limiter 25%, road 30%.
+- **Original GT3:** the integration's existing Balanced settings derived from PedalFeel 0.19.0. This retains the previous 20% upshift starting value and full original limiter/downshift coefficients; it is not a separate GT4 setup.
 
-New bases start at **×1**, which scales the original mixed signal by **2.1** before motor calibration. Upshift remains adjustable from 0–100%; 20% is its starting value, not a permanent cap. In Original GT3 bases, limiter and downshift start at 100% of their original effect amplitudes—not 100% motor power. Copies and imported profiles keep their saved values.
+**Create your own profile** copies Standard, Original GT3 or the selected profile. **Assign to current car** saves that association; it loads again when the car is selected. Cars without an assignment use Standard. **Delete profile** removes a custom profile, assigns Standard to all affected cars, and shows a notification. The two built-in profiles cannot be deleted; their settings remain editable.
 
-Overall strength and enabled pedals belong to the profile. Automatic activation, physical channel mapping and motor frequency limits are shared by the device. Older saved car settings are imported as named profiles with their car assignments; tuned values and calibration are retained.
+Brake and throttle strength belong to the profile. The common baseline is fixed at the previous ×1 (internal gain 2.1); there is no overall gain slider. Engine vibration and idle can be adjusted separately on each pedal. The new brake engine controls start at 0% until adjusted. Throttle strength starts at 100%. Hardware channel mapping and frequency calibration remain shared by the device.
+
+On upgrade, retired built-in Subtle, Aggressive and Formula entries are replaced by Standard. User-created profiles and their assignments are retained. The pre-upgrade settings file is copied to a `.before-0.5.0` snapshot; the former common gain is reset to ×1. Frequency calibration is retained.
 
 ## Effect previews and motor tests
 
 | Control | What it plays | What affects its power |
 | --- | --- | --- |
-| **Try** beside an effect in **Feel in game** | Up to two seconds of that effect, using simulated telemetry through the same renderer as driving | Selected profile, overall strength, enabled pedals and motor frequency limits |
+| **Try** beside an effect in **Feel in game** | Up to two seconds of that effect, using simulated telemetry through the same renderer as driving | Selected profile, pedal strength, enabled pedals and motor frequency limits |
 | **500 ms** beside a frequency slider in **Pedal setup** | A direct tone at 16, 25, 35 or 50 Hz | The exact percentage beside that button; profile strength does not apply |
 
-Effect previews cover brake loading, grip warning, wheel lock, ABS, downshift, rear traction loss, engine, limiter, idle, upshift, bumps and kerbs. Shifts and bumps are single events. Engine and kerb previews change frequency. They illustrate an effect, not a recording of a particular car; simultaneous effects can change its feel while driving.
+Effect previews cover grip warning, ABS, downshift, rear traction loss, engine and idle on each pedal, limiter, upshift, bumps and kerbs. The unexplained brake-loading and wheel-lock buttons have been removed. Shifts and bumps are single events. Engine and kerb previews change frequency. Examples now use moderate inputs and the same output pipeline as live driving. They illustrate an effect, not a recording of a particular car; simultaneous effects can change its feel while driving.
 
 **Stop preview** ends the example. Another preview or motor test replaces the previous one. Editing settings, changing profiles/game state, disconnecting the device or closing the tab cancels an effect preview. Normal output then resumes: PedalFeel in a running iRacing session, otherwise SimHub. Zero-strength effects remain off during previews.
 
 ## Strength and motor calibration
 
-- **Overall effect strength:** ×0–×2, in steps of 0.1. ×0 mutes game effects and their previews.
-- **Individual effect strengths:** 0–100%. Zero disables that effect. Brake effect strength also scales ABS, locking and downshift on the brake.
+- **Brake / throttle strength:** independent 0–100% controls. Zero silences all effects on that pedal. The common baseline stays at the previous ×1.
+- **Individual effect strengths:** 0–100%. Zero disables that effect. Brake strength also scales ABS, locking, downshift, engine and road cues on the brake.
 - **Warning threshold:** 0.75–1.05. Lower values warn earlier; this is estimated grip, not motor power.
 - **Motor minimum/maximum:** 0–100% at 16, 25, 35 and 50 Hz, separately for brake and throttle.
 

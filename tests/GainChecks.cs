@@ -23,7 +23,7 @@ internal static class GainChecks
             check(Near(value.EffectsGain, sample[1]), "gain sanitization preserves valid values and clamps bounds: " + sample[0]);
         }
         var native = NativeConfig.From(new PedalFeelSettings { EffectsGain = 1.7 });
-        check(native.Version == 3 && native.Size == 176 && Near(native.EffectsGain, 1.7),
+        check(native.Version == 4 && native.Size == 200 && Near(native.EffectsGain, 1.7),
             "managed settings pass the chosen gain through the versioned native configuration");
 
         // Named-profile gain migration and isolation are exercised by LibraryChecks.

@@ -14,7 +14,7 @@ internal static class ProfilePreviewPanelChecks
 {
     public static void Run(Action<bool, string> check)
     {
-        var current = new PedalFeelSettings { Enabled = true, DownshiftKick = .2, LimiterStrength = .2 };
+        var current = new PedalFeelSettings { Enabled = true, BrakeEngineTexture = .25, BrakeIdleTexture = .25, DownshiftKick = .2, LimiterStrength = .2 };
         var state = new ProfilePanelState {
             SelectedId = "balanced", AssignedId = "balanced", CurrentCar = "Ferrari 296 GT3", CanAssign = true,
             Description = "Fixture profile description",
@@ -61,7 +61,7 @@ internal static class ProfilePreviewPanelChecks
             check(resets == 1 && state.SelectedId == "formula" && state.AssignedId == "" && previews == 0,
                 "restoring a named profile's basis is explicit and does not assign it or preview an effect");
 
-            foreach (EffectPreviewKind effect in Enum.GetValues(typeof(EffectPreviewKind)))
+            foreach (EffectPreviewKind effect in Enum.GetValues(typeof(EffectPreviewKind)).Cast<EffectPreviewKind>().Where(e => e != EffectPreviewKind.BrakeLoading && e != EffectPreviewKind.Locking))
             {
                 int previous = previews;
                 Click(Find<Button>(panel, "Preview" + effect));
@@ -82,16 +82,18 @@ internal static class ProfilePreviewPanelChecks
                 !Find<Button>(panel, "PreviewDownshift").IsEnabled && Find<Button>(panel, "PreviewEngine").IsEnabled,
                 "brake preview availability respects the common brake strength independently of throttle effects");
             Find<Slider>(panel, "Strength").Value = .7;
-            Find<Slider>(panel, "EffectsGain").Value = 0;
-            check(Enum.GetValues(typeof(EffectPreviewKind)).Cast<EffectPreviewKind>().All(e => !Find<Button>(panel, "Preview" + e).IsEnabled),
+            Find<Slider>(panel, "ThrottleStrength").Value = 0;
+            Find<Slider>(panel, "Strength").Value = 0;
+            check(Enum.GetValues(typeof(EffectPreviewKind)).Cast<EffectPreviewKind>().Where(e => e != EffectPreviewKind.BrakeLoading && e != EffectPreviewKind.Locking).All(e => !Find<Button>(panel, "Preview" + e).IsEnabled),
                 "zero overall profile strength disables every effect preview");
-            Find<Slider>(panel, "EffectsGain").Value = 1;
+            Find<Slider>(panel, "ThrottleStrength").Value = 1;
+            Find<Slider>(panel, "Strength").Value = .7;
             Click(Find<CheckBox>(panel, "BrakeEnabled"));
             check(!Find<Button>(panel, "PreviewAbs").IsEnabled && Find<Button>(panel, "PreviewEngine").IsEnabled,
                 "pedal disable blocks only previews that need that pedal");
             Click(Find<CheckBox>(panel, "BrakeEnabled"));
             Click(Find<CheckBox>(panel, "AutoEnable"));
-            check(Enum.GetValues(typeof(EffectPreviewKind)).Cast<EffectPreviewKind>().All(e => !Find<Button>(panel, "Preview" + e).IsEnabled),
+            check(Enum.GetValues(typeof(EffectPreviewKind)).Cast<EffectPreviewKind>().Where(e => e != EffectPreviewKind.BrakeLoading && e != EffectPreviewKind.Locking).All(e => !Find<Button>(panel, "Preview" + e).IsEnabled),
                 "automatic mode off disables all previews");
             ForceClick(Find<Button>(panel, "PreviewEngine"));
             Click(Find<CheckBox>(panel, "AutoEnable"));

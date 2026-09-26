@@ -153,7 +153,7 @@ void independentEffects() {
             require(full.mode == HapticMode::Shift && soft.mode == HapticMode::Shift &&
                     full.output > soft.output && soft.output > 0,
                     "independent brake downshift has full and reduced strength");
-            const double transient = 1 - (1.0 / 60) / .10;
+            const double transient = 1 - (1.0 / 60) / .16;
             equal(soft.output, std::tanh(transient * .34 * .2 * 1.35) / std::tanh(1.35),
                   "downshift gain is applied before original brake shaping");
         }
@@ -243,8 +243,8 @@ int main() {
         auto b = directBrake.render(state, settings);
         auto t = directThrottle.render(state, c.traction_strength, c.engine_texture, c.shift_kick,
                                       c.idle_texture);
-        b = mixBrakeChassisCue(b, t);
-        const auto s = directSurface.render(state, c.surface_strength);
+        auto s = directSurface.render(state, c.surface_strength);
+        s.brake.output *= c.brake_strength;
         b = mixSurfaceCue(b, s.brake);
         t = mixSurfaceCue(t, s.throttle);
         const auto actual = bridge.update(true, true, state, state.time);
@@ -413,7 +413,7 @@ int main() {
     apiConfig.version = PF_ABI_VERSION;
     require(pf_default_config(&apiConfig) == PF_OK && apiConfig.brake_maximum[3] == 35 &&
             apiConfig.effects_gain == 2.1 && apiConfig.shift_kick == .20 &&
-            apiConfig.limiter_strength == .20 && apiConfig.downshift_kick == .20 && apiConfig.version == 3,
+            apiConfig.limiter_strength == .20 && apiConfig.downshift_kick == .20 && apiConfig.version == 4,
             "C ABI default settings");
     require(pf_configure(nullptr, &apiConfig) == PF_INVALID_ARGUMENT, "null handle rejected");
     auto* runtime = pf_create();

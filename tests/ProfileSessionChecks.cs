@@ -30,27 +30,27 @@ internal static class ProfileSessionChecks
             check(f.State().CanAssign && f.State().AssignedId == assigned,
                 "the real extension enables assignment only after current iRacing car telemetry arrives");
 
-            f.Select("author-subtle");
+            f.Select("author-balanced");
             f.Update(Data("IRacing", true, "session-car", "Session car"));
-            check(f.Profiles.CurrentProfileId == "author-subtle" && f.State().AssignedId == assigned &&
-                Near(f.LastEngine.Configured!.Strength, CarPresets.CreateBasis("author-subtle").Strength),
+            check(f.Profiles.CurrentProfileId == "author-balanced" && f.State().AssignedId == assigned &&
+                Near(f.LastEngine.Configured!.Strength, CarPresets.CreateBasis("author-balanced").Strength),
                 "same-session telemetry preserves a temporary manual profile while retaining the car assignment");
 
             var dropped = Data("IRacing", true);
             dropped.NewData = null!;
             f.Update(dropped);
-            check(f.Profiles.CurrentKey == "iracing|id:session-car" && f.Profiles.CurrentProfileId == "author-subtle" &&
+            check(f.Profiles.CurrentKey == "iracing|id:session-car" && f.Profiles.CurrentProfileId == "author-balanced" &&
                 !f.State().CanAssign && Rejects(() => f.Call("AssignProfile")),
                 "a dropped identity frame keeps current tuning but disables assignment to a stale car identity");
             f.Update(Data("IRacing", true, "session-car", "Session car"));
-            check(f.Profiles.CurrentProfileId == "author-subtle" && f.State().CanAssign && f.State().AssignedId == assigned,
+            check(f.Profiles.CurrentProfileId == "author-balanced" && f.State().CanAssign && f.State().AssignedId == assigned,
                 "returning identity within the same session restores assignment controls without undoing the temporary profile");
 
             f.Update(Data("IRacing", false, "session-car", "Session car"));
-            check(!f.Controller.Active && !f.State().CanAssign && f.Profiles.CurrentProfileId == "author-subtle",
+            check(!f.Controller.Active && !f.State().CanAssign && f.Profiles.CurrentProfileId == "author-balanced",
                 "closing iRacing disables assignment and preserves the visible temporary profile until the next car is known");
             f.Update(Data("IRacing", true));
-            check(f.Profiles.CurrentProfileId == "author-subtle" && !f.State().CanAssign,
+            check(f.Profiles.CurrentProfileId == "author-balanced" && !f.State().CanAssign,
                 "a new session with no car identity defers profile restoration instead of assigning to the previous car");
             f.Update(Data("IRacing", true, "session-car", "Session car"));
             f.DisplayCurrent();
@@ -89,32 +89,32 @@ internal static class ProfileSessionChecks
             using (var f = new Fixture()) {
                 f.DisplayCurrent();
                 var russian = f.State();
-                string russianName = russian.Profiles.Single(p => p.Key == CarPresets.AuthorBalanced).Value;
+                string russianName = russian.Profiles.Single(p => p.Key == CarPresets.Standard).Value;
                 double displayedStrength = f.DisplayedSettings.Strength;
                 L10n.OverrideCulture = "en";
                 var english = f.State();
                 check(english.SelectedId == russian.SelectedId &&
-                    english.Profiles.Single(p => p.Key == CarPresets.AuthorBalanced).Value == L10n.T(CarPresets.BasisLabel(CarPresets.AuthorBalanced)) &&
-                    english.Profiles.Single(p => p.Key == CarPresets.AuthorBalanced).Value != russianName &&
+                    english.Profiles.Single(p => p.Key == CarPresets.Standard).Value == L10n.T(CarPresets.BasisLabel(CarPresets.Standard)) &&
+                    english.Profiles.Single(p => p.Key == CarPresets.Standard).Value != russianName &&
                     Near(f.DisplayedSettings.Strength, displayedStrength),
                     "GetProfileState refreshes translated seed names after locale changes without replacing displayed tuning");
 
                 // Simulate repository state changing before the queued WPF rebind executes.
-                f.Profiles.SelectProfile("formula");
+                f.Profiles.SelectProfile("author-balanced");
                 L10n.OverrideCulture = "de-DE";
                 var staleProfile = f.State();
-                check(ReferenceEquals(staleProfile, english) && staleProfile.SelectedId == CarPresets.AuthorBalanced &&
-                    Near(f.DisplayedSettings.Strength, CarPresets.CreateBasis(CarPresets.AuthorBalanced).Strength) &&
+                check(ReferenceEquals(staleProfile, english) && staleProfile.SelectedId == CarPresets.Standard &&
+                    Near(f.DisplayedSettings.Strength, CarPresets.CreateBasis(CarPresets.Standard).Strength) &&
                     !Near(f.DisplayedSettings.Strength, f.Profiles.Current().Strength),
                     "a locale refresh cannot pair a newly selected profile name with controls still showing the previous profile");
                 f.DisplayCurrent();
                 var rebound = f.State();
-                check(rebound.SelectedId == "formula" &&
-                    rebound.Profiles.Single(p => p.Key == "formula").Value == L10n.T(CarPresets.BasisLabel("formula")) &&
+                check(rebound.SelectedId == "author-balanced" &&
+                    rebound.Profiles.Single(p => p.Key == "author-balanced").Value == L10n.T(CarPresets.BasisLabel("author-balanced")) &&
                     Near(f.DisplayedSettings.Strength, f.Profiles.Current().Strength),
                     "after the panel rebind, translated names and tuning come from the same selected profile");
 
-                f.Profiles.SelectProfile(CarPresets.AuthorBalanced);
+                f.Profiles.SelectProfile(CarPresets.Standard);
                 f.DisplayCurrent();
                 var beforeCarChange = f.State();
                 f.Profiles.SelectCar("IRacing", "new-locale-car", "New locale car");

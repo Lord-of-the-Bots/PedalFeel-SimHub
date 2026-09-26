@@ -18,6 +18,7 @@ internal static class Program
             string file = Path.Combine(host, new AssemblyName(e.Name).Name + ".dll");
             return File.Exists(file) ? Assembly.LoadFrom(file) : null;
         };
+        if (args.Length > 1 && args[1] == "--render") { PanelScreenshots.Run(host); return 0; }
         try { Run(host); Console.WriteLine("PASS: " + checks + " managed checks"); return 0; }
         catch (Exception e) { Console.Error.WriteLine(e); return 1; }
     }
@@ -27,7 +28,7 @@ internal static class Program
         var app = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
         L10n.OverrideCulture = "ru-RU";
         Check(!Environment.Is64BitProcess, "x86 host architecture");
-        Check(Marshal.SizeOf(typeof(NativeConfig)) == 176 && Marshal.SizeOf(typeof(NativeOutput)) == 80, "ABI v3 structure sizes");
+        Check(Marshal.SizeOf(typeof(NativeConfig)) == 200 && Marshal.SizeOf(typeof(NativeOutput)) == 80, "ABI v3 structure sizes");
         Check(Marshal.OffsetOf(typeof(NativeConfig), "BrakeMinimum").ToInt32() == 88, "ABI inline calibration offset");
         Check(Marshal.OffsetOf(typeof(NativeConfig), "EffectsGain").ToInt32() == 152, "ABI v3 appended effect gain offset");
         Check(Marshal.OffsetOf(typeof(NativeConfig), "LimiterStrength").ToInt32() == 160, "ABI v3 appended limiter strength offset");
@@ -35,7 +36,7 @@ internal static class Program
         using (var engine = new NativeEngine()) {
             engine.Configure(new PedalFeelSettings());
             var frame = engine.Tick();
-            Check(frame.Version == 3 && frame.Size == 80, "Actual native cdecl/PInvoke ABI v3");
+            Check(frame.Version == 4 && frame.Size == 80, "Actual native cdecl/PInvoke ABI v3");
             Check(frame.BrakeIntensity >= 0 && frame.BrakeIntensity <= 100, "Native output range");
             if (frame.Connected == 0) Check(frame.BrakeIntensity == 0 && frame.ThrottleIntensity == 0, "No telemetry means native silence");
         }
@@ -44,6 +45,7 @@ internal static class Program
         if (adapterChecks != null) adapterChecks.GetMethod("Run")!.Invoke(null, new object[] { (Action<bool,string>)Check });
         StatusChecks.Run(Check);
         PanelChecks.Run(Check);
+        RevisionFiveChecks.Run(Check);
         LocalizationChecks.Run(Check);
         LocalizationHostChecks.Run(host, Check);
         Check(PedalFeelExtensionFilter.SimagicHapticsId == SimHubHapticsAdapter.SupportedDeviceTypeId, "Device filter and adapter identities match");
@@ -60,11 +62,11 @@ internal static class Program
             string a = ProfileRepository.CarKey("IRacing", "ferrari296gt3", "Ferrari 296 GT3");
             string b = ProfileRepository.CarKey("IRacing", "bmwm4gt3", "BMW M4 GT3");
             Check(profiles.Select(a, "Ferrari 296 GT3"), "New car selects a profile");
-            Check(profiles.Current().Strength == .70, "Unassigned car receives the author Balanced base");
+            Check(profiles.Current().Strength == .60, "Unassigned car receives the author Balanced base");
             profiles.CreateProfile("Ferrari tuning", "author-balanced", true);
             settings = profiles.Current(); settings.Strength = .8; profiles.Commit(settings);
             profiles.Select(b, "BMW M4 GT3");
-            Check(profiles.Current().Strength == .70, "Different car has independent initial tuning");
+            Check(profiles.Current().Strength == .60, "Different car has independent initial tuning");
             profiles.CreateProfile("BMW tuning", "author-balanced", true);
             settings = profiles.Current(); settings.BrakeMaximum[0] = 42; profiles.Commit(settings);
             profiles.Select(a, "Ferrari 296 GT3");

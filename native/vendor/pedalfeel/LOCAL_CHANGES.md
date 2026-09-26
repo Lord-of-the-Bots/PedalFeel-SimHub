@@ -42,3 +42,7 @@ tests and original upstream engine tests are run by `native/build.ps1`.
 The native wrapper forwards the controls through ABI v3. The upstream public
 renderer defaults stay at 1 for the two added controls to preserve existing call
 semantics; they are not the plug-in's default preset values.
+
+## 0.5.0
+
+Shift envelopes last 160 ms. Upshift amplitude coefficient is .34 (previously .20); road cues cannot replace an active shift pitch. The wrapper adds independent brake engine/idle controls and a throttle master through ABI v4. Automatic throttle-to-brake chassis crossfeed is replaced by explicit brake engine settings. Brake strength also applies to road and the new engine layers. Live configuration updates retain renderer history and wait for a new sample before issuing output. Previews use the live engine path with isolated, moderate synthetic inputs.

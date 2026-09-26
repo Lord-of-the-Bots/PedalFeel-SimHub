@@ -21,7 +21,7 @@ namespace PedalFeel.SimHub
     internal sealed class NamedProfile
     {
         public string Name { get; set; } = "";
-        public string BasisId { get; set; } = CarPresets.AuthorBalanced;
+        public string BasisId { get; set; } = CarPresets.Standard;
         public bool LocalizedName { get; set; }
         public bool UserEdited { get; set; }
         public PedalFeelSettings Settings { get; set; } = new PedalFeelSettings();
@@ -39,7 +39,7 @@ namespace PedalFeel.SimHub
         public Dictionary<string, PresetOrigin> Origins { get; set; } = new Dictionary<string, PresetOrigin>();
         public Dictionary<string, NamedProfile> Profiles { get; set; } = new Dictionary<string, NamedProfile>();
         public Dictionary<string, string> CarAssignments { get; set; } = new Dictionary<string, string>();
-        public string SelectedProfileId { get; set; } = CarPresets.AuthorBalanced;
+        public string SelectedProfileId { get; set; } = CarPresets.Standard;
     }
 
     // Independent of SimHub's selected device preset: a vehicle change must never discard another car's tuning.
@@ -76,11 +76,16 @@ namespace PedalFeel.SimHub
                     }
                 }
             }
-            if (migrated) ScheduleSave();
+            if (migrated) {
+                // A dedicated migration snapshot survives later rotating .bak saves.
+                if (File.Exists(path) && !File.Exists(path + ".before-0.5.0"))
+                    File.Copy(path, path + ".before-0.5.0");
+                ScheduleSave();
+            }
         }
         private static ProfileCatalog FreshCatalog()
         {
-            var result = new ProfileCatalog { SchemaVersion = 2, TuningRevision = CurrentTuningRevision };
+            var result = new ProfileCatalog { SchemaVersion = 3, TuningRevision = CurrentTuningRevision };
             AddSeeds(result); return result;
         }
         private static void AddSeeds(ProfileCatalog result)
@@ -100,7 +105,7 @@ namespace PedalFeel.SimHub
             migrated = false;
             var json = JObject.Parse(File.ReadAllText(path));
             var result = json.ToObject<ProfileCatalog>() ?? throw new InvalidDataException("Empty settings");
-            if ((result.SchemaVersion != 1 && result.SchemaVersion != 2) || result.Device == null || result.Cars == null || result.CarNames == null)
+            if ((result.SchemaVersion != 1 && result.SchemaVersion != 2 && result.SchemaVersion != 3) || result.Device == null || result.Cars == null || result.CarNames == null)
                 throw new InvalidDataException("Unsupported settings schema");
             if (result.ModelAliases == null) result.ModelAliases = new Dictionary<string, string>();
             if (result.Origins == null) result.Origins = new Dictionary<string, PresetOrigin>();
@@ -117,7 +122,7 @@ namespace PedalFeel.SimHub
                     string id = "import-" + Guid.NewGuid().ToString("N");
                     string name = result.CarNames.TryGetValue(pair.Key, out var savedName) && !string.IsNullOrWhiteSpace(savedName) ? savedName : pair.Key;
                     result.Origins.TryGetValue(pair.Key, out var origin);
-                    result.Profiles[id] = new NamedProfile { Name = UniqueName(result, name), Settings = settings,
+                    result.Profiles[id] = new NamedProfile { Name = UniqueName(result, name), LocalizedName = pair.Key == DefaultKey && name == "Базовый профиль — машина ещё не определена", Settings = settings,
                         BasisId = origin == null ? "legacy" : "legacy:" + origin.PresetId,
                         LegacyOrigin = origin?.Clone(), UserEdited = origin?.UserEdited ?? true };
                     if (pair.Key == DefaultKey) result.SelectedProfileId = id;
@@ -132,23 +137,43 @@ namespace PedalFeel.SimHub
                 result.SchemaVersion = 2; changed = true;
             } else if (json["Profiles"] == null || result.Profiles == null || result.Profiles.Count == 0 || result.CarAssignments == null)
                 throw new InvalidDataException("Invalid named profile library");
+            if (result.SchemaVersion < 3) {
+                // Backed up by atomic Save before migration reaches disk. Keep named user
+                // profiles; replace retired built-in starters and their car assignments.
+                var retired = new[] { "author-subtle", "author-aggressive", "formula" };
+                foreach (var id in retired) {
+                    result.Profiles.Remove(id);
+                    foreach (var car in result.CarAssignments.Where(p => p.Value == id).Select(p => p.Key).ToArray())
+                        result.CarAssignments[car] = CarPresets.Standard;
+                    if (result.SelectedProfileId == id) result.SelectedProfileId = CarPresets.Standard;
+                }
+                AddSeeds(result);
+                foreach (var profile in result.Profiles.Values) profile.Settings.EffectsGain = PedalFeelSettings.BaseEffectsGain;
+                result.SchemaVersion = 3; changed = true;
+            }
             result.Device.Normalize();
             foreach (var profile in result.Profiles.Values) {
                 if (profile == null || profile.Settings == null || string.IsNullOrWhiteSpace(profile.Name))
                     throw new InvalidDataException("Invalid named profile");
                 profile.Settings.Normalize();
             }
-            if (!result.Profiles.ContainsKey(CarPresets.AuthorBalanced)) { AddSeeds(result); changed = true; }
-            if (!result.Profiles.ContainsKey(result.SelectedProfileId ?? "")) { result.SelectedProfileId = CarPresets.AuthorBalanced; changed = true; }
-            foreach (var pair in result.CarAssignments)
-                if (string.IsNullOrEmpty(pair.Value) || !result.Profiles.ContainsKey(pair.Value))
-                    throw new InvalidDataException("Invalid car profile assignment");
+            if (!result.Profiles.ContainsKey(CarPresets.Standard) || !result.Profiles.ContainsKey(CarPresets.AuthorBalanced)) { AddSeeds(result); changed = true; }
+            if (!result.Profiles.ContainsKey(result.SelectedProfileId ?? "")) { result.SelectedProfileId = CarPresets.Standard; changed = true; }
+            foreach (var pair in result.CarAssignments.ToArray())
+                if (string.IsNullOrEmpty(pair.Value) || !result.Profiles.ContainsKey(pair.Value)) {
+                    result.CarAssignments[pair.Key] = CarPresets.Standard; changed = true;
+                }
             // A provisional model and its stable ID are one car. Retain imported
             // profiles themselves, but keep a single authoritative assignment.
             foreach (var alias in result.ModelAliases) {
                 if (alias.Key == alias.Value || !result.CarAssignments.TryGetValue(alias.Key, out var provisional)) continue;
                 if (!result.CarAssignments.ContainsKey(alias.Value)) result.CarAssignments[alias.Value] = provisional;
                 result.CarAssignments.Remove(alias.Key); changed = true;
+            }
+            foreach (var seed in CarPresets.Bases.Where(p => p.Key != "current")) {
+                if (result.Profiles.TryGetValue(seed.Key, out var profile) && profile.LocalizedName) {
+                    profile.Name = seed.Value;
+                }
             }
             migrated = changed;
             return result;
@@ -221,10 +246,10 @@ namespace PedalFeel.SimHub
                     catalog.CarNames[key] = display; ScheduleSave();
                 }
                 if (changedCar) ScheduleSave();
-                return changedCar || changedName;
+                return changedCar;
             }
         }
-        private string AssignedOrDefault(string key) => catalog.CarAssignments.TryGetValue(key, out var id) && catalog.Profiles.ContainsKey(id) ? id : CarPresets.AuthorBalanced;
+        private string AssignedOrDefault(string key) => catalog.CarAssignments.TryGetValue(key, out var id) && catalog.Profiles.ContainsKey(id) ? id : CarPresets.Standard;
         public PedalFeelSettings Current()
         {
             lock (sync) {
@@ -287,8 +312,23 @@ namespace PedalFeel.SimHub
                 bool removed = catalog.CarAssignments.Remove(CurrentKey);
                 foreach (var alias in catalog.ModelAliases.Where(a => a.Value == CurrentKey).ToArray())
                     removed |= catalog.CarAssignments.Remove(alias.Key);
-                if (removed) { catalog.SelectedProfileId = CarPresets.AuthorBalanced; ScheduleSave(); }
+                if (removed) { catalog.SelectedProfileId = CarPresets.Standard; ScheduleSave(); }
                 return removed;
+            }
+        }
+        public int DeleteProfile(string id)
+        {
+            lock (sync) {
+                RequireProfile(id);
+                if (id == CarPresets.Standard || id == CarPresets.AuthorBalanced)
+                    throw new InvalidOperationException(L10n.T("Встроенный профиль нельзя удалить."));
+                int count = 0;
+                foreach (var car in catalog.CarAssignments.Where(p => p.Value == id).Select(p => p.Key).ToArray()) {
+                    catalog.CarAssignments[car] = CarPresets.Standard; count++;
+                }
+                catalog.Profiles.Remove(id);
+                if (catalog.SelectedProfileId == id) catalog.SelectedProfileId = CarPresets.Standard;
+                ScheduleSave(); return count;
             }
         }
         private void RequireCurrentCar()
@@ -359,10 +399,7 @@ namespace PedalFeel.SimHub
         }
         private static string DescribeProfile(NamedProfile profile)
         {
-            string description;
-            if (profile.BasisId.StartsWith("legacy", StringComparison.Ordinal)) description = L10n.T("Сохранённые настройки из предыдущей версии.");
-            else description = L10n.F("Основа: {0}.", L10n.T(CarPresets.BasisLabel(profile.BasisId))) + " " +
-                L10n.T(profile.BasisId == "formula" ? "Последние настройки для формул: переключения передач и отсечка по 20%." : "Основа автора PedalFeel; общая сила ×1 и толчок при повышении 20%.");
+            string description = L10n.F("Основа: {0}.", L10n.T(CarPresets.BasisLabel(profile.BasisId)));
             if (profile.UserEdited) description += " " + L10n.T("с вашими изменениями");
             return description;
         }
@@ -374,6 +411,7 @@ namespace PedalFeel.SimHub
             return value;
         }
         private static bool SameEffects(PedalFeelSettings a, PedalFeelSettings b) =>
+            a.ThrottleStrength == b.ThrottleStrength && a.BrakeEngineTexture == b.BrakeEngineTexture && a.BrakeIdleTexture == b.BrakeIdleTexture &&
             a.BrakeEnabled == b.BrakeEnabled && a.ThrottleEnabled == b.ThrottleEnabled && a.EffectsGain == b.EffectsGain &&
             a.GripThreshold == b.GripThreshold && a.Strength == b.Strength && a.Texture == b.Texture &&
             a.AbsPunch == b.AbsPunch && a.TractionStrength == b.TractionStrength && a.EngineTexture == b.EngineTexture &&

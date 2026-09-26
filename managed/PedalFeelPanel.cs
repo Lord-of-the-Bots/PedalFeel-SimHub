@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
@@ -23,6 +23,8 @@ namespace PedalFeel.SimHub
         private readonly Func<PanelStatus>? _presentationStatus;
         private readonly Action<EffectPreviewKind>? _previewEffect;
         private readonly Action? _stopPreview, _assignProfile, _clearAssignment;
+        private readonly Func<int>? _deleteProfile;
+        private Button? _deleteProfileButton;
         private readonly Func<ProfilePanelState>? _profileState;
         private readonly Action<string>? _selectProfile;
         private readonly Action<string, string, bool>? _createProfile;
@@ -31,6 +33,7 @@ namespace PedalFeel.SimHub
         private readonly DispatcherTimer _timer;
         private CheckBox _autoEnable = null!;
         private TabControl _sections = null!;
+        private ScrollViewer? _outerScroll;
         private ScrollViewer _feelingScroll = null!, _pedalsScroll = null!;
         private Expander _presetsExpander = null!, _diagnosticsExpander = null!;
         private FrameworkElement _brakeCurve = null!, _throttleCurve = null!;
@@ -61,7 +64,7 @@ namespace PedalFeel.SimHub
             Func<PanelStatus>? presentationStatus = null,
             Action<EffectPreviewKind>? previewEffect = null, Action? stopPreview = null,
             Func<ProfilePanelState>? profileState = null, Action<string>? selectProfile = null,
-            Action<string, string, bool>? createProfile = null, Action? assignProfile = null, Action? clearAssignment = null)
+            Action<string, string, bool>? createProfile = null, Action? assignProfile = null, Action? clearAssignment = null, Func<int>? deleteProfile = null)
         {
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
             _changed = changed ?? throw new ArgumentNullException(nameof(changed));
@@ -72,14 +75,33 @@ namespace PedalFeel.SimHub
             _presets = presets == null ? new List<KeyValuePair<string, string>>() : new List<KeyValuePair<string, string>>(presets);
             _applyPreset = applyPreset; _presentationStatus = presentationStatus;
             _previewEffect = previewEffect; _stopPreview = stopPreview; _profileState = profileState;
-            _selectProfile = selectProfile; _createProfile = createProfile; _assignProfile = assignProfile; _clearAssignment = clearAssignment;
+            _selectProfile = selectProfile; _createProfile = createProfile; _assignProfile = assignProfile; _clearAssignment = clearAssignment; _deleteProfile = deleteProfile;
             Build();
             _timer = new DispatcherTimer(DispatcherPriority.Background, Dispatcher) { Interval = TimeSpan.FromMilliseconds(500) };
             _timer.Tick += (_, __) => RefreshState();
-            Loaded += (_, __) => { RefreshState(); _timer.Start(); };
-            Unloaded += (_, __) => { _timer.Stop(); CancelPreview(); };
+            Loaded += (_, __) => {
+                for (DependencyObject? parent = VisualTreeHelper.GetParent(this); parent != null; parent = VisualTreeHelper.GetParent(parent)) {
+                    if (parent is ScrollViewer outer) { _outerScroll = outer; outer.SizeChanged -= OuterSizeChanged; outer.SizeChanged += OuterSizeChanged; break; }
+                }
+                InvalidateMeasure(); RefreshState(); _timer.Start();
+            };
+            Unloaded += (_, __) => { if (_outerScroll != null) _outerScroll.SizeChanged -= OuterSizeChanged; _outerScroll = null; _timer.Stop(); CancelPreview(); };
         }
 
+        private void OuterSizeChanged(object sender, SizeChangedEventArgs e) => InvalidateMeasure();
+        protected override Size MeasureOverride(Size availableSize)
+        {
+            // SimHub may wrap extension tabs in another ScrollViewer. Give our
+            // inner pages a viewport so status and navigation stay on screen.
+            if (double.IsInfinity(availableSize.Height)) {
+                for (DependencyObject? parent = VisualTreeHelper.GetParent(this); parent != null; parent = VisualTreeHelper.GetParent(parent)) {
+                    if (parent is ScrollViewer outer && outer.ActualHeight > 300) {
+                        availableSize.Height = Math.Max(300, outer.ActualHeight - 24); break;
+                    }
+                }
+            }
+            return base.MeasureOverride(availableSize);
+        }
         public void Rebind(PedalFeelSettings settings)
         {
             if (settings == null) throw new ArgumentNullException(nameof(settings));
@@ -152,7 +174,7 @@ namespace PedalFeel.SimHub
         }
         private FrameworkElement BuildHeader()
         {
-            var body = new StackPanel();
+            var body = new StackPanel(); var details = new StackPanel();
             var heading = new Grid();
             heading.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); heading.ColumnDefinitions.Add(new ColumnDefinition());
             heading.Children.Add(Text("PedalFeel", 20, FontWeights.SemiBold));
@@ -163,8 +185,8 @@ namespace PedalFeel.SimHub
             int generation = _generation;
             _autoEnable.Click += (_, __) => { if (_updating || generation != _generation) return; _settings.Enabled = _autoEnable.IsChecked == true; Apply(); };
             Put(heading, _autoEnable, 1); body.Children.Add(heading);
-            body.Children.Add(Note("Запустили iRacing → PedalFeel. Закрыли iRacing → SimHub.", 5));
-            body.Children.Add(Note("Нужен запущенный симулятор: одного выбора игры в SimHub недостаточно. Возврат после закрытия — до 4 с."));
+            details.Children.Add(Note("Запустили iRacing → PedalFeel. Закрыли iRacing → SimHub.", 5));
+            details.Children.Add(Note("Нужен запущенный симулятор: одного выбора игры в SimHub недостаточно. Возврат после закрытия — до 4 с."));
             var statusRow = new Grid { Margin = new Thickness(0, 8, 0, 0) };
             statusRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(20) }); statusRow.ColumnDefinitions.Add(new ColumnDefinition());
             _statusMarker = Text("●", 13, FontWeights.SemiBold);
@@ -178,15 +200,18 @@ namespace PedalFeel.SimHub
                 Put(statusRow, stopPreview, 2);
             }
             body.Children.Add(statusRow);
-            _statusDetail = Named(Note("", 3), "StatusDetail"); _statusDetail.Margin = new Thickness(20, 3, 0, 3); body.Children.Add(_statusDetail);
+            _statusDetail = Named(Note("", 3), "StatusDetail"); _statusDetail.Height = 36; _statusDetail.Margin = new Thickness(20, 3, 0, 3); details.Children.Add(_statusDetail);
             var actions = new WrapPanel { Margin = new Thickness(0, 4, 0, 0) };
             var stop = Named(Button("Вернуть управление SimHub"), "Stop"); stop.Click += (_, __) => RunAction(_stop); actions.Children.Add(stop);
-            var stopHint = Note("Отключит автоматический режим."); stopHint.VerticalAlignment = VerticalAlignment.Center; stopHint.Margin = new Thickness(12, 4, 0, 4); actions.Children.Add(stopHint); body.Children.Add(actions);
+            var stopHint = Note("Отключит автоматический режим."); stopHint.VerticalAlignment = VerticalAlignment.Center; stopHint.Margin = new Thickness(12, 4, 0, 4); actions.Children.Add(stopHint); details.Children.Add(actions);
             _feedback = Named(Note("", 3), "ActionError"); body.Children.Add(_feedback);
-            _statusDiagnostic = Named(Note(""), "StatusDiagnostic");
+            _statusDiagnostic = Named(Note(""), "StatusDiagnostic"); details.Children.Add(_statusDiagnostic);
             _diagnosticsExpander = Named(new Expander { Header = L10n.T("Подробности состояния"), IsExpanded = _diagnosticsOpen,
-                Content = new ScrollViewer { Content = _statusDiagnostic, MaxHeight = 110, VerticalScrollBarVisibility = ScrollBarVisibility.Auto }, Margin = new Thickness(0, 4, 0, 0) }, "DiagnosticsExpander");
-            body.Children.Add(_diagnosticsExpander); return Card(body, 0);
+                Content = new ScrollViewer { Content = details, MaxHeight = 160, VerticalScrollBarVisibility = ScrollBarVisibility.Auto }, Margin = new Thickness(0, 4, 0, 0) }, "DiagnosticsExpander");
+            body.Children.Add(_diagnosticsExpander);
+            _outputSummary = Named(Text("", 13, FontWeights.SemiBold), "OutputSummary");
+            _outputSummary.MinHeight = 36; body.Children.Add(_outputSummary);
+            return Card(body, 0);
         }
         private StackPanel BuildFeelings()
         {
@@ -195,18 +220,17 @@ namespace PedalFeel.SimHub
             _carHint = Named(Note(""), "CarHint"); _profileSummary = Named(Note(""), "ProfileSummary");
             profile.Children.Add(_carText); profile.Children.Add(_carHint); profile.Children.Add(_profileSummary);
             profile.Children.Add(_profileState == null ? (UIElement)BuildPresetControls() : BuildNamedProfileControls()); page.Children.Add(Card(profile));
-            _outputSummary = Named(Text("", 13, FontWeights.SemiBold), "OutputSummary");
-            _outputSummary.Margin = new Thickness(0, 8, 0, 0); profile.Children.Add(_outputSummary);
-            profile.Children.Add(SliderRow("EffectsGain", "Общая сила эффектов", () => _settings.EffectsGain / PedalFeelSettings.BaseEffectsGain, v => _settings.EffectsGain = v * PedalFeelSettings.BaseEffectsGain,
-                "Для выбранного профиля. Усиливает игровые эффекты; мощность проверки не меняется.", 0, 2, false, .1, v => "×" + v.ToString("0.0", UiCulture), "Диапазон: ×0–×2."));
             if (_previewEffect != null) profile.Children.Add(BuildPreviewNotice());
             var brake = CardBody("Тормоз");
-            brake.Children.Add(SliderRow("Strength", "Сила тормозных эффектов", () => _settings.Strength, v => _settings.Strength = v, "Общая сила сигналов тормоза, включая ABS и блокировку колёс.", previews: new[] { EffectPreviewKind.BrakeLoading, EffectPreviewKind.Locking }));
+            brake.Children.Add(SliderRow("Strength", "Сила тормозных эффектов", () => _settings.Strength, v => _settings.Strength = v, "Общая сила сигналов тормоза, включая ABS и блокировку колёс."));
             brake.Children.Add(SliderRow("GripThreshold", "Порог предупреждения", () => _settings.GripThreshold, v => _settings.GripThreshold = v, "Меньше — раньше, больше — позже. Предел сцепления оценивается по телеметрии.", .75, 1.05, false));
             brake.Children.Add(SliderRow("Texture", "Предупреждение о пределе", () => _settings.Texture, v => _settings.Texture = v, "Сила предупреждения о расчётном пределе сцепления передних шин.", previews: new[] { EffectPreviewKind.Threshold }));
             brake.Children.Add(SliderRow("AbsPunch", "Импульсы ABS", () => _settings.AbsPunch, v => _settings.AbsPunch = v, "Сила пульсации, когда iRacing сообщает о работе ABS.", previews: new[] { EffectPreviewKind.Abs }));
             brake.Children.Add(SliderRow("DownshiftKick", "Толчок при понижении", () => _settings.DownshiftKick, v => _settings.DownshiftKick = v, "Короткий толчок на тормозе при переключении на пониженную передачу. 0% — выключено.", previews: new[] { EffectPreviewKind.Downshift })); page.Children.Add(Card(brake));
+            brake.Children.Add(SliderRow("BrakeEngineTexture", "Вибрация двигателя", () => _settings.BrakeEngineTexture, v => _settings.BrakeEngineTexture = v, "Вибрация двигателя на тормозе во время движения.", previews: new[] { EffectPreviewKind.BrakeEngine }));
+            brake.Children.Add(SliderRow("BrakeIdleTexture", "Холостой ход", () => _settings.BrakeIdleTexture, v => _settings.BrakeIdleTexture = v, "Вибрация двигателя на тормозе на холостом ходу.", previews: new[] { EffectPreviewKind.BrakeIdle }));
             var throttle = CardBody("Газ");
+            throttle.Children.Add(SliderRow("ThrottleStrength", "Сила эффектов газа", () => _settings.ThrottleStrength, v => _settings.ThrottleStrength = v, "Общая сила всех эффектов на педали газа."));
             throttle.Children.Add(SliderRow("TractionStrength", "Потеря сцепления сзади", () => _settings.TractionStrength, v => _settings.TractionStrength = v, "Расчётное предупреждение о потере сцепления задней оси; это не прямой сигнал TC.", previews: new[] { EffectPreviewKind.Traction }));
             throttle.Children.Add(SliderRow("EngineTexture", "Вибрация двигателя", () => _settings.EngineTexture, v => _settings.EngineTexture = v, "Обычная вибрация двигателя меняется с оборотами при нажатии газа. Отсечка настраивается отдельно.", previews: new[] { EffectPreviewKind.Engine }));
             throttle.Children.Add(SliderRow("LimiterStrength", "Отсечка", () => _settings.LimiterStrength, v => _settings.LimiterStrength = v, "Импульсы при срабатывании ограничителя оборотов. 0% — выключено.", previews: new[] { EffectPreviewKind.Limiter }));
@@ -234,6 +258,13 @@ namespace PedalFeel.SimHub
             _clearAssignmentButton = Named(Button("Отменить назначение"), "ClearAssignment");
             _assignProfileButton.Click += (_, __) => { if (generation == _generation && _assignProfile != null) RunAction(_assignProfile); };
             _clearAssignmentButton.Click += (_, __) => { if (generation == _generation && _clearAssignment != null) RunAction(_clearAssignment); };
+            _deleteProfileButton = Named(Button("Удалить профиль"), "DeleteProfile");
+            _deleteProfileButton.Margin = new Thickness(10, 4, 0, 4);
+            _deleteProfileButton.Click += (_, __) => {
+                if (generation != _generation || _deleteProfile == null) return;
+                RunAction(() => { int count = _deleteProfile(); Feedback(L10n.F("Профиль удалён. Машинам назначен стандартный профиль: {0}.", count)); });
+            };
+            actions.Children.Add(_deleteProfileButton);
             actions.Children.Add(_assignProfileButton); actions.Children.Add(_clearAssignmentButton); body.Children.Add(actions);
             if (_resetProfile != null) {
                 var reset = Named(Button("Вернуть настройки основы"), "ResetProfile");
@@ -271,6 +302,7 @@ namespace PedalFeel.SimHub
             _updating = true;
             try {
                 SetOptions(_profileChoice, state.Profiles, state.SelectedId);
+                if (_deleteProfileButton != null) _deleteProfileButton.IsEnabled = _deleteProfile != null && state.SelectedId != CarPresets.Standard && state.SelectedId != CarPresets.AuthorBalanced;
                 var bases = new List<KeyValuePair<string, string>>();
                 foreach (var item in state.Bases) bases.Add(new KeyValuePair<string, string>(item.Key, L10n.T(item.Value)));
                 SetOptions(_profileBasis, bases, _newProfileBasis);
@@ -301,7 +333,7 @@ namespace PedalFeel.SimHub
         private FrameworkElement BuildPreviewNotice()
         {
             var body = new StackPanel { Margin = new Thickness(0, 6, 0, 0) };
-            body.Children.Add(Note("Кнопки «Попробовать» воспроизводят отдельный эффект до 2 секунд с настройками профиля и калибровкой моторов. Это имитация, а не запись конкретной машины."));
+            body.Children.Add(Note("Пример показывает умеренное срабатывание эффекта с вашими настройками. В заезде ощущения зависят от ситуации и других сигналов. Проверка частоты на 500 мс — прямой тест мотора."));
             return body;
         }
         private void CancelPreview()
@@ -314,7 +346,7 @@ namespace PedalFeel.SimHub
             if (!_settings.Enabled) return L10n.T("Включите «Автоматически включать PedalFeel в iRacing» вверху вкладки.");
             if (!(EffectPreview.UsesBrake(effect) && _settings.BrakeEnabled) && !(EffectPreview.UsesThrottle(effect) && _settings.ThrottleEnabled))
                 return L10n.T("Включите выбранную педаль в разделе каналов.");
-            return EffectPreview.HasStrength(effect, _settings) ? null : L10n.T("Эффект выключен: увеличьте его силу или общую силу профиля.");
+            return EffectPreview.HasStrength(effect, _settings) ? null : L10n.T("Эффект выключен: увеличьте силу эффекта или соответствующей педали.");
         }
         private FrameworkElement PreviewButtons(EffectPreviewKind[] effects)
         {
@@ -343,7 +375,7 @@ namespace PedalFeel.SimHub
                 item.Value.ToolTip = reason ?? L10n.T("Воспроизвести пример эффекта до 2 секунд");
                 var message = _previewMessages[item.Key];
                 message.Text = _previewErrorKind == item.Key && _previewErrorMessage.Length > 0 ? _previewErrorMessage
-                    : _settings.Enabled && !EffectPreview.HasStrength(item.Key, _settings) ? L10n.T("Эффект выключен: увеличьте его силу или общую силу профиля.") : "";
+                    : _settings.Enabled && !EffectPreview.HasStrength(item.Key, _settings) ? L10n.T("Эффект выключен: увеличьте силу эффекта или соответствующей педали.") : "";
                 message.Visibility = message.Text.Length == 0 ? Visibility.Collapsed : Visibility.Visible;
             }
         }
@@ -511,7 +543,7 @@ namespace PedalFeel.SimHub
             try
             {
                 PanelStatus? status = _presentationStatus?.Invoke(); string fallback = status == null ? (_status() ?? "") : "";
-                _outputSummary.Text = status?.OutputSummary ?? ""; _outputSummary.Visibility = string.IsNullOrWhiteSpace(_outputSummary.Text) ? Visibility.Collapsed : Visibility.Visible;
+                _outputSummary.Text = status?.OutputSummary ?? ""; _outputSummary.Visibility = Visibility.Visible;
                 _statusTitle.Text = status?.Title ?? FirstLine(fallback); _statusDetail.Text = status?.Detail ?? ""; _statusDiagnostic.Text = status?.Diagnostic ?? fallback;
                 StatusTone tone = status?.Tone ?? StatusTone.Neutral; _statusMarker.Text = tone == StatusTone.Error || tone == StatusTone.Warning ? "!" : "●"; _statusMarker.Foreground = StatusBrush(tone);
             }
@@ -522,7 +554,7 @@ namespace PedalFeel.SimHub
                 _statusDetail.Text = L10n.T("Откройте подробности состояния. При необходимости верните управление SimHub.");
                 _statusDiagnostic.Text = error.Message; _statusMarker.Text = "!"; _statusMarker.Foreground = StatusBrush(StatusTone.Error);
             }
-            _statusDetail.Visibility = string.IsNullOrWhiteSpace(_statusDetail.Text) ? Visibility.Collapsed : Visibility.Visible;
+            _statusDetail.Visibility = Visibility.Visible;
             try
             {
                 ProfilePanelState? profile = _profileState?.Invoke();

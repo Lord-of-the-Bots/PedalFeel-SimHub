@@ -16,14 +16,14 @@ public:
     Engine() noexcept;
     bool configure(const PfConfig& config) noexcept;
     PfOutput update(bool fresh, bool connected, const pedalfeel::VehicleState& state,
-                    double monotonicSeconds) noexcept;
+                    double monotonicSeconds, bool includeLoading = true) noexcept;
 private:
     void resetRenderers() noexcept;
     void quiet() noexcept;
     PfConfig config_{};
     PfOutput output_{};
     pedalfeel::BrakeRenderer brake_;
-    pedalfeel::ThrottleRenderer throttle_;
+    pedalfeel::ThrottleRenderer throttle_, brakeEngine_;
     pedalfeel::SurfaceRenderer surface_;
     bool haveSample_{};
     bool running_{};

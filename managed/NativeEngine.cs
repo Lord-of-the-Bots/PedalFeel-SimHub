@@ -18,9 +18,10 @@ namespace PedalFeel.SimHub
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)] public int[] ThrottleMinimum;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)] public int[] ThrottleMaximum;
         public double EffectsGain, LimiterStrength, DownshiftKick;
+        public double ThrottleStrength, BrakeEngineTexture, BrakeIdleTexture;
 
         public static NativeConfig From(PedalFeelSettings s) => new NativeConfig {
-            Size = (uint)Marshal.SizeOf(typeof(NativeConfig)), Version = 3,
+            Size = (uint)Marshal.SizeOf(typeof(NativeConfig)), Version = 4,
             BrakeEnabled = s.BrakeEnabled ? 1 : 0, ThrottleEnabled = s.ThrottleEnabled ? 1 : 0,
             GripThreshold = s.GripThreshold, Strength = s.Strength, Texture = s.Texture,
             AbsPunch = s.AbsPunch, TractionStrength = s.TractionStrength,
@@ -28,6 +29,7 @@ namespace PedalFeel.SimHub
             SurfaceStrength = s.SurfaceStrength,
             BrakeMinimum = Round(s.BrakeMinimum), BrakeMaximum = Round(s.BrakeMaximum),
             ThrottleMinimum = Round(s.ThrottleMinimum), ThrottleMaximum = Round(s.ThrottleMaximum),
+            ThrottleStrength = s.ThrottleStrength, BrakeEngineTexture = s.BrakeEngineTexture, BrakeIdleTexture = s.BrakeIdleTexture,
             EffectsGain = s.EffectsGain, LimiterStrength = s.LimiterStrength, DownshiftKick = s.DownshiftKick
         };
         private static int[] Round(double[] values) => values.Select(v => (int)Math.Round(v, MidpointRounding.AwayFromZero)).ToArray();
@@ -105,14 +107,14 @@ namespace PedalFeel.SimHub
         }
         public NativeOutput Tick()
         {
-            var output = new NativeOutput { Size = (uint)Marshal.SizeOf(typeof(NativeOutput)), Version = 3 };
+            var output = new NativeOutput { Size = (uint)Marshal.SizeOf(typeof(NativeOutput)), Version = 4 };
             if (tick!(handle, ref output) != 0) throw new InvalidOperationException(L10n.T("Ошибка обработки телеметрии PedalFeel."));
             return output;
         }
         public NativeOutput Preview(EffectPreviewKind effect, double elapsedSeconds)
         {
             if (!configured || handle == IntPtr.Zero) throw new InvalidOperationException(L10n.T("Движок ещё не готов к проверке эффекта."));
-            var output = new NativeOutput { Size = (uint)Marshal.SizeOf(typeof(NativeOutput)), Version = 3 };
+            var output = new NativeOutput { Size = (uint)Marshal.SizeOf(typeof(NativeOutput)), Version = 4 };
             if (preview!(ref currentConfig, (int)effect, elapsedSeconds, ref output) != 0)
                 throw new InvalidOperationException(L10n.T("Не удалось воспроизвести пример эффекта."));
             return output;

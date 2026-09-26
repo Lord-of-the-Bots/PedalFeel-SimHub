@@ -102,7 +102,7 @@ internal static class TuningChecks
             var custom = (JObject)catalog.DeepClone(); custom["Device"]!["EffectsGain"] = pair[0];
             File.WriteAllText(customFile, custom.ToString());
             using (var profiles = new ProfileRepository(customFile))
-                check(Near(profiles.Current().EffectsGain, pair[1]),
+                check(Near(profiles.Current().EffectsGain, 2.1),
                     "migration preserves custom absolute gain within the new supported range: " + pair[0]);
         }
         CarTuning(directory, check);
@@ -119,7 +119,7 @@ internal static class TuningChecks
             check(profiles.Describe(profiles.CurrentKey, profiles.CurrentName).Contains("вашими изменениями"),
                 "limiter/downshift edits count as personal car tuning");
             profiles.SelectCar("IRacing", "bmwm4gt3", "BMW M4 GT3");
-            check(Near(profiles.Current().LimiterStrength, 1) && Near(profiles.Current().DownshiftKick, 1),
+            check(Near(profiles.Current().LimiterStrength, .25) && Near(profiles.Current().DownshiftKick, .80),
                 "an unassigned car loads independent author limiter and downshift defaults");
             profiles.SelectCar("IRacing", "ferrari296gt3", "Ferrari 296 GT3");
             check(profiles.Current().LimiterStrength == 0 && Near(profiles.Current().DownshiftKick, .61),

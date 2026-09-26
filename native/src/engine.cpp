@@ -45,6 +45,7 @@ PfConfig defaults() noexcept {
     c.idle_texture = .28;
     c.surface_strength = .28;
     c.effects_gain = 2.1;
+    c.throttle_strength = 1;
     c.limiter_strength = .20;
     c.downshift_kick = .20;
     std::fill(std::begin(c.brake_maximum), std::end(c.brake_maximum), 35);
@@ -63,6 +64,7 @@ bool validConfig(const PfConfig& c) noexcept {
            range(c.surface_strength, 0, 1) && range(c.effects_gain, 0, 4.2) &&
            range(c.limiter_strength, 0, 1) &&
            range(c.downshift_kick, 0, 1) &&
+           range(c.throttle_strength, 0, 1) && range(c.brake_engine_texture, 0, 1) && range(c.brake_idle_texture, 0, 1) &&
            curve(c.brake_minimum, c.brake_maximum) &&
            curve(c.throttle_minimum, c.throttle_maximum);
 }
@@ -74,6 +76,7 @@ Engine::Engine() noexcept : config_(defaults()) {
 void Engine::resetRenderers() noexcept {
     brake_ = {};
     throttle_ = {};
+    brakeEngine_ = {};
     surface_ = {};
     running_ = false;
 }
@@ -89,15 +92,13 @@ void Engine::quiet() noexcept {
 bool Engine::configure(const PfConfig& config) noexcept {
     if (!validConfig(config))
         return false;
-    config_ = config;
-    resetRenderers();
-    haveSample_ = false;
-    quiet();
+    config_ = config; // Slider edits must preserve gear history and effect envelopes.
+    quiet(); // Do not send an old command with newly changed settings.
     return true;
 }
 
 PfOutput Engine::update(bool fresh, bool connected, const pedalfeel::VehicleState& state,
-                        double now) noexcept {
+                        double now, bool includeLoading) noexcept {
     output_.new_sample = 0;
     output_.connected = connected ? 1 : 0;
     if (!std::isfinite(now) || !connected) {
@@ -123,13 +124,17 @@ PfOutput Engine::update(bool fresh, bool connected, const pedalfeel::VehicleStat
             const pedalfeel::RenderSettings settings{config_.grip_threshold, config_.brake_strength,
                                                     config_.brake_texture, config_.abs_punch,
                                                     config_.downshift_kick};
-            brake = brake_.render(state, settings);
+            brake = brake_.render(state, settings, includeLoading);
             throttle = throttle_.render(state, config_.traction_strength, config_.engine_texture,
                                         config_.shift_kick, config_.idle_texture, config_.limiter_strength);
-            brake = pedalfeel::mixBrakeChassisCue(brake, throttle);
-            const auto surface = surface_.render(state, config_.surface_strength);
+            auto engineOnBrake = brakeEngine_.render(state, 0, config_.brake_engine_texture, 0, config_.brake_idle_texture, 0);
+            engineOnBrake.output *= config_.brake_strength;
+            if (brake.mode != pedalfeel::HapticMode::Shift) brake = pedalfeel::mixSurfaceCue(brake, engineOnBrake);
+            auto surface = surface_.render(state, config_.surface_strength);
+            surface.brake.output *= config_.brake_strength;
             brake = pedalfeel::mixSurfaceCue(brake, surface.brake);
             throttle = pedalfeel::mixSurfaceCue(throttle, surface.throttle);
+            throttle.output *= config_.throttle_strength;
             running_ = true;
         }
         if (!config_.brake_enabled) brake = {};

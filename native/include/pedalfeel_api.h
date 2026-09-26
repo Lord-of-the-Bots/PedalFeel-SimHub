@@ -19,12 +19,12 @@
 extern "C" {
 #endif
 
-/* ABI v3. All callers MUST use pack=8, 32-bit integers and IEEE-754 doubles.
+/* ABI v4. All callers MUST use pack=8, 32-bit integers and IEEE-754 doubles.
  * Set size=sizeof(struct), version=PF_ABI_VERSION before every call.
  * All operations on the same handle, including destroy, must be serialized.
  * This library reads iRacing shared memory only. It never opens/writes HID devices.
  */
-#define PF_ABI_VERSION 3u
+#define PF_ABI_VERSION 4u
 #define PF_OK 0
 #define PF_INVALID_ARGUMENT (-1)
 #define PF_INTERNAL_ERROR (-2)
@@ -60,6 +60,7 @@ typedef struct PfConfig {
     double limiter_strength;
     /* Independent brake downshift pulse, 0..1, default .20. */
     double downshift_kick;
+    double throttle_strength, brake_engine_texture, brake_idle_texture;
 } PfConfig;
 
 typedef struct PfOutput {
@@ -89,7 +90,7 @@ typedef struct PfOutput {
 /* Returns null on allocation failure. */
 PF_API void* PF_CALL pf_create(void);
 PF_API void PF_CALL pf_destroy(void* handle);
-/* Rejects invalid/NaN settings atomically; resets filter state on success.
+/* Rejects invalid/NaN settings atomically; preserves filter/gear history on success; waits for a new sample.
  * grip_threshold range is .75..1.05; effects_gain is 0..4.2;
  * individual effect strengths are 0..1. */
 PF_API int32_t PF_CALL pf_configure(void* handle, const PfConfig* config);
@@ -101,7 +102,7 @@ PF_API int32_t PF_CALL pf_tick(void* handle, PfOutput* output);
 PF_API int32_t PF_CALL pf_default_config(PfConfig* config);
 
 /* Isolated synthetic effect previews. IDs are stable; this additive export keeps
- * ABI v3 structure layouts unchanged. The DLL still never writes hardware. */
+ * ABI v4 adds independent pedal/engine settings. The DLL still never writes hardware. */
 typedef enum PfPreviewEffect {
     PF_PREVIEW_BRAKE_LOADING = 0,
     PF_PREVIEW_THRESHOLD = 1,
@@ -114,7 +115,8 @@ typedef enum PfPreviewEffect {
     PF_PREVIEW_IDLE = 8,
     PF_PREVIEW_UPSHIFT = 9,
     PF_PREVIEW_SURFACE = 10,
-    PF_PREVIEW_RUMBLE = 11
+    PF_PREVIEW_RUMBLE = 11,
+    PF_PREVIEW_BRAKE_ENGINE = 12, PF_PREVIEW_BRAKE_IDLE = 13
 } PfPreviewEffect;
 /* Replays deterministic synthetic telemetry through isolated original renderers
  * at 60 Hz, then applies the current gain, calibration and channel enables.
@@ -128,6 +130,6 @@ PF_API int32_t PF_CALL pf_preview(const PfConfig* config, int32_t effect,
 
 #ifdef __cplusplus
 }
-static_assert(sizeof(PfConfig) == 176, "PfConfig ABI size");
+static_assert(sizeof(PfConfig) == 200, "PfConfig ABI size");
 static_assert(sizeof(PfOutput) == 80, "PfOutput ABI size");
 #endif
