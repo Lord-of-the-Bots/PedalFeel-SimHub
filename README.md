@@ -120,3 +120,22 @@ To uninstall, close SimHub and remove `PedalFeel.SimHub.dll` and the `PedalFeel`
 The original estimates are oriented around GT3 and rear-axle traction. ABS and limiter feedback require the corresponding live telemetry flags. Grip, wheel lock and traction estimates can behave differently between cars; this is not a validated model for every drivetrain, surface or racing class. The original application's overlay and CSV recording are not included.
 
 Source: [UdaraJay/PedalFeel](https://github.com/UdaraJay/PedalFeel), version 0.19.0, commit [`06649f3`](https://github.com/UdaraJay/PedalFeel/tree/06649f3cd7c59abaa5f928d82752ae9d8a3956ef). Source and runtime licence notices are included with the release. Building and contributing: [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Support this integration
+
+You can support development of this SimHub integration with a cryptocurrency donation:
+
+BTC (Bitcoin):
+1NbtPNkofnKZRjLpULRjhKuAtbh12DovC9
+
+USDT, TRX (TRC20):
+TUgM6hPokF1vPUW8CRp77CgvF3YroabwFP
+
+TON:
+UQBLdOWJeVeVg4b0-HkQGNVV8HG6-xWS7moZOUfNBz2-Jf3u
+
+ETH (ERC20):
+0x14bba7b8b76ea4743a202bdee2144e4d558ddf93
+
+LTC (Litecoin):
+LRRS5YBeqfkYpw2jC2bDAWgpcgm7Wpu6pM
