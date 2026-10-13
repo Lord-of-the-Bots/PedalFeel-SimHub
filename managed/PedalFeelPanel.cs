@@ -221,6 +221,7 @@ namespace PedalFeel.SimHub
             profile.Children.Add(_carText); profile.Children.Add(_carHint); profile.Children.Add(_profileSummary);
             profile.Children.Add(_profileState == null ? (UIElement)BuildPresetControls() : BuildNamedProfileControls()); page.Children.Add(Card(profile));
             if (_previewEffect != null) profile.Children.Add(BuildPreviewNotice());
+            profile.Children.Add(Note("На стоящей машине работает только холостой ход. 0% отключает его на выбранной педали."));
             var brake = CardBody("Тормоз");
             brake.Children.Add(SliderRow("Strength", "Сила тормозных эффектов", () => _settings.Strength, v => _settings.Strength = v, "Общая сила сигналов тормоза, включая ABS и блокировку колёс."));
             brake.Children.Add(SliderRow("GripThreshold", "Порог предупреждения", () => _settings.GripThreshold, v => _settings.GripThreshold = v, "Меньше — раньше, больше — позже. Предел сцепления оценивается по телеметрии.", .75, 1.05, false));
@@ -414,6 +415,7 @@ namespace PedalFeel.SimHub
         private StackPanel BuildCalibrationControls()
         {
             var body = CardBody("Мощность по частотам");
+            body.Children.Add(Note("Минимальная мощность не усиливает холостой ход; максимальная мощность ограничивает все эффекты."));
             var selector = new WrapPanel { Margin = new Thickness(0, 3, 0, 10) };
             var pedalLabel = Text("Педаль", 13); pedalLabel.Margin = new Thickness(0, 6, 0, 0); selector.Children.Add(pedalLabel);
             _testPedal = Named(new ComboBox { Width = 160, Margin = new Thickness(12, 0, 0, 0) }, "TestPedal");

@@ -9,6 +9,17 @@ namespace {
 bool range(double value, double minimum, double maximum) noexcept {
     return std::isfinite(value) && value >= minimum && value <= maximum;
 }
+pedalfeel::HapticFrame mixEngineCue(const pedalfeel::HapticFrame& brake,
+                                    const pedalfeel::HapticFrame& engine) noexcept {
+    auto mixed = pedalfeel::mixSurfaceCue(brake, engine);
+    // A quieter engine layer cannot retune or relabel a stronger brake cue.
+    if (brake.output >= engine.output && brake.output > .001) {
+        mixed.frequencyHz = brake.frequencyHz;
+        mixed.mode = brake.mode;
+    }
+    return mixed;
+}
+
 bool curve(const int32_t* minimum, const int32_t* maximum) noexcept {
     for (int i = 0; i < 4; ++i)
         if (minimum[i] < 0 || maximum[i] > 100 || minimum[i] > maximum[i])
@@ -26,7 +37,14 @@ void physical(const pedalfeel::HapticFrame& frame, double gain, const int32_t* m
     const int frequency = static_cast<int>(std::lround(std::clamp(frame.frequencyHz, 10.0, 50.0)));
     const pedalfeel::simagic::IntensityCurve low{minimum[0], minimum[1], minimum[2], minimum[3]};
     const pedalfeel::simagic::IntensityCurve high{maximum[0], maximum[1], maximum[2], maximum[3]};
-    intensity = pedalfeel::simagic::calibrateIntensity(requested, frequency, low, high);
+    if (frame.mode == pedalfeel::HapticMode::Idle) {
+        // Idle is a background level, not an alert: a motor's minimum must not
+        // turn a small idle setting into a strong continuous vibration.
+        const int ceiling = pedalfeel::simagic::interpolateIntensityCurve(high, frequency);
+        intensity = static_cast<int>(std::lround(std::clamp(frame.output * gain, 0.0, 1.0) * ceiling));
+    } else {
+        intensity = pedalfeel::simagic::calibrateIntensity(requested, frequency, low, high);
+    }
     hz = intensity > 0 ? frequency : 0;
 }
 
@@ -79,6 +97,7 @@ void Engine::resetRenderers() noexcept {
     brakeEngine_ = {};
     surface_ = {};
     running_ = false;
+    stationary_ = true;
 }
 
 void Engine::quiet() noexcept {
@@ -121,19 +140,39 @@ PfOutput Engine::update(bool fresh, bool connected, const pedalfeel::VehicleStat
             resetRenderers();
         pedalfeel::HapticFrame brake{}, throttle{};
         if (active) {
-            const pedalfeel::RenderSettings settings{config_.grip_threshold, config_.brake_strength,
-                                                    config_.brake_texture, config_.abs_punch,
-                                                    config_.downshift_kick};
-            brake = brake_.render(state, settings, includeLoading);
-            throttle = throttle_.render(state, config_.traction_strength, config_.engine_texture,
-                                        config_.shift_kick, config_.idle_texture, config_.limiter_strength);
-            auto engineOnBrake = brakeEngine_.render(state, 0, config_.brake_engine_texture, 0, config_.brake_idle_texture, 0);
-            engineOnBrake.output *= config_.brake_strength;
-            if (brake.mode != pedalfeel::HapticMode::Shift) brake = pedalfeel::mixSurfaceCue(brake, engineOnBrake);
-            auto surface = surface_.render(state, config_.surface_strength);
-            surface.brake.output *= config_.brake_strength;
-            brake = pedalfeel::mixSurfaceCue(brake, surface.brake);
-            throttle = pedalfeel::mixSurfaceCue(throttle, surface.throttle);
+            // Use a small dead band for telemetry noise at rest. Hysteresis
+            // prevents repeated switching while creeping around the boundary.
+            const double speed = std::isfinite(state.speedKph) ? std::abs(state.speedKph) : 0.0;
+            const bool stationary = speed <= (stationary_ ? 1.0 : .5);
+            if (stationary != stationary_) resetRenderers();
+            stationary_ = stationary;
+            if (stationary) {
+                // Discard driving envelopes on entry. Even a held brake,
+                // stale kerb signal, ABS flag or gear change cannot add output.
+                brake = brakeEngine_.render(state, 0, 0, 0, config_.brake_idle_texture, 0);
+                brake.output *= config_.brake_strength;
+                throttle = throttle_.render(state, 0, 0, 0, config_.idle_texture, 0);
+                if (config_.brake_idle_texture <= 0) brake = {};
+                if (config_.idle_texture <= 0) throttle = {};
+                // Release tails are still idle, including during a throttle blip.
+                // They must never regain the calibrated minimum of a driving cue.
+                brake.mode = brake.output > 0 ? pedalfeel::HapticMode::Idle : pedalfeel::HapticMode::Quiet;
+                throttle.mode = throttle.output > 0 ? pedalfeel::HapticMode::Idle : pedalfeel::HapticMode::Quiet;
+            } else {
+                const pedalfeel::RenderSettings settings{config_.grip_threshold, config_.brake_strength,
+                                                        config_.brake_texture, config_.abs_punch,
+                                                        config_.downshift_kick};
+                brake = brake_.render(state, settings, includeLoading);
+                throttle = throttle_.render(state, config_.traction_strength, config_.engine_texture,
+                                            config_.shift_kick, config_.idle_texture, config_.limiter_strength);
+                auto engineOnBrake = brakeEngine_.render(state, 0, config_.brake_engine_texture, 0, config_.brake_idle_texture, 0);
+                engineOnBrake.output *= config_.brake_strength;
+                brake = mixEngineCue(brake, engineOnBrake);
+                auto surface = surface_.render(state, config_.surface_strength);
+                surface.brake.output *= config_.brake_strength;
+                brake = pedalfeel::mixSurfaceCue(brake, surface.brake);
+                throttle = pedalfeel::mixSurfaceCue(throttle, surface.throttle);
+            }
             throttle.output *= config_.throttle_strength;
             running_ = true;
         }

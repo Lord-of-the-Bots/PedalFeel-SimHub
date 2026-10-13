@@ -335,5 +335,7 @@
   "Вибрация двигателя на тормозе во время движения.": "Vibration du moteur sur le frein en roulant.",
   "Вибрация двигателя на тормозе на холостом ходу.": "Vibration du moteur sur le frein au ralenti.",
   "Пример показывает умеренное срабатывание эффекта с вашими настройками. В заезде ощущения зависят от ситуации и других сигналов. Проверка частоты на 500 мс — прямой тест мотора.": "L’exemple reproduit un événement modéré avec vos réglages. En course, la situation et les autres signaux modifient le ressenti. Le test de fréquence de 500 ms commande directement le moteur.",
-  "Эффект выключен: увеличьте силу эффекта или соответствующей педали.": "Effet désactivé : augmentez son intensité ou celle de la pédale correspondante."
+  "Эффект выключен: увеличьте силу эффекта или соответствующей педали.": "Effet désactivé : augmentez son intensité ou celle de la pédale correspondante.",
+  "На стоящей машине работает только холостой ход. 0% отключает его на выбранной педали.": "À l’arrêt, seule la vibration de ralenti est active. Réglez-la à 0% pour désactiver la vibration de la pédale sélectionnée.",
+  "Минимальная мощность не усиливает холостой ход; максимальная мощность ограничивает все эффекты.": "La puissance minimale n’amplifie pas le ralenti ; la puissance maximale limite tous les effets."
 }

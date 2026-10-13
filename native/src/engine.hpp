@@ -27,6 +27,7 @@ private:
     pedalfeel::SurfaceRenderer surface_;
     bool haveSample_{};
     bool running_{};
+    bool stationary_{true};
     double lastSampleAt_{};
     double lastSessionTime_{};
 };

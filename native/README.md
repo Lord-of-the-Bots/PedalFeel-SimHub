@@ -1,91 +1,35 @@
 # PedalFeel native bridge
 
-Read-only iRacing telemetry adapter and original PedalFeel renderers, exposed through
-a small C ABI for the SimHub plug-in. **This DLL has no HID/USB device access.**
-The managed plug-in exclusively owns device takeover and hardware output.
+Read-only iRacing telemetry reader and haptic rendering engine, exposed through a C ABI. The managed SimHub integration owns hardware output; this DLL does not open HID or USB devices.
 
-## Sources and licence
+## Source and licences
 
-Vendored files are based on UdaraJay/PedalFeel commit
-`06649f3cd7c59abaa5f928d82752ae9d8a3956ef` (MIT). Version 0.3.4 adds separate limiter
-and brake-downshift controls and corrects ownership/ducking for effects set to zero.
-These are explicit local renderer changes, documented in `vendor/pedalfeel/LOCAL_CHANGES.md`. See
-`vendor/pedalfeel/LICENSE` and `vendor/pedalfeel/THIRD_PARTY_NOTICES.md`.
-Wrapper files are also distributed under MIT, as stated in `LICENSE`.
-Binary distributions must include `licenses/LLVM-LICENSE.TXT` and
-`licenses/MinGW-w64-runtime.txt` for the statically linked C++ and MinGW runtimes.
-Keep the documented renderer changes when updating the upstream sources.
+The telemetry reader and renderers are based on [UdaraJay/PedalFeel](https://github.com/UdaraJay/PedalFeel), commit `06649f3cd7c59abaa5f928d82752ae9d8a3956ef`, under the MIT licence. Renderer adaptations are described in [LOCAL_CHANGES.md](vendor/pedalfeel/LOCAL_CHANGES.md). Retain [the upstream licence](vendor/pedalfeel/LICENSE), [iRacing notices](vendor/pedalfeel/THIRD_PARTY_NOTICES.md) and the wrapper [licence](LICENSE).
 
-## ABI
+Binary distributions also include `licenses/LLVM-LICENSE.TXT` and `licenses/MinGW-w64-runtime.txt` for the statically linked runtimes.
 
-`include/pedalfeel_api.h` is authoritative. Use cdecl, sequential layout and pack=8.
-`PfConfig` is 176 bytes and `PfOutput` is 80 bytes on x86 and x64. All integers are
-32 bits; no strings, objects or booleans cross the boundary. Set size to sizeof the relevant structure and version=3
-before calls. Serialize all operations on each opaque handle. No callbacks or
-background threads are created by the DLL. Poll every ~4 ms and always inspect
-the returned output, even when `new_sample` is false: the telemetry timeout can
-stop the output between samples.
+## ABI and output
 
-The original rendering model, mixing order, integer rounding and four-anchor
-calibration are retained, with the explicit per-effect changes listed above.
-A repeated iRacing frame does not advance
-the renderers. Disconnect, replay/garage state or >=250 ms without a new frame
-zero output; filters reset on recovery, configuration changes and session rollback.
-The `effects_gain` double at offset 152 accepts finite values from 0 to 4.2
-and defaults to 2.1. The UI shows this baseline as ×1 and maps its ×0..×2 slider
-to native gain 0..4.2. The new ×1 is 70% of the 0.3.3 default. It scales mixed signals before intensity rounding and calibration;
-zero stays off, and calibrated commands retain the configured ceiling. Raw output
-fields remain the original signal before amplification. A gain of 1 reproduces
-the unamplified mixed output. The `limiter_strength` double at offset 160 and
-`downshift_kick` at offset 168 accept finite 0..1 values and default to .20.
-Upshift (`shift_kick`) also defaults to .20. A value of 1 for the new per-effect
-controls reproduces the original fixed limiter and downshift pulses; zero disables
-their amplitude, frequency/mode ownership and any attenuation of other effects.
-Intensity calibration defaults to 0..35% per channel, pending user calibration.
-Calibration anchor frequencies are 16, 25, 35 and 50 Hz. The remaining effect defaults
-match upstream. The DLL only supports iRacing, as does the upstream application.
+`include/pedalfeel_api.h` defines ABI version 4. Use cdecl, pack=8, 32-bit integers and IEEE-754 doubles. `PfConfig` is 200 bytes and `PfOutput` is 80 bytes on both x86 and x64. Set structure sizes and versions before calling. Serialize access to each opaque handle, including destruction.
 
-## Reproducible build on Windows
+The caller polls the engine and consumes every returned output, including calls where `new_sample` is false. Duplicate telemetry frames do not advance the renderers. Disconnection, inactive driving and telemetry older than 250 ms silence output. Recovery, session rollback and transitions between driving and stationary operation reset effect envelopes. Settings changes preserve driving state and wait for a new sample before sending another command.
 
-Requires a portable LLVM-MinGW C++20 toolchain, available from
-https://github.com/mstorsjo/llvm-mingw/releases/tag/20260922 . Use
-`llvm-mingw-20260922-ucrt-x86_64.zip`, extracted under `.tools`. Both targets
-statically link the C++ runtime; the target computer needs Windows UCRT, not LLVM.
-Archive SHA-256:
-`e3ad77d117a4bea19a7a3b333341824d79a5a371004a10e25b8504e7b3047666`.
+At rest, the engine renders only each pedal's configured idle effect. Stationary operation ends above 1 km/h and resumes at or below 0.5 km/h; this hysteresis prevents switching due to small speed fluctuations. Invalid speed is treated as stationary. Brake pressure, tyre feedback, road effects, shifts, limiter and loaded-engine vibration are excluded while stationary.
+
+`effects_gain` defaults to 2.1 and accepts values from 0 to 4.2. The interface uses the fixed 2.1 baseline with independent pedal and effect strengths. Calibration uses four anchors at 16, 25, 35 and 50 Hz, initially 0–35%. Driving cues use the calibrated minimum and maximum. Idle uses its proportional signal and frequency maximum without applying a minimum-power floor. Disabled pedals and zero signals remain silent.
+
+## Effect previews
+
+`pf_preview` renders an isolated effect from simulated input. It uses the same renderers and physical conversion as live output, without reading game telemetry or writing to hardware. It is an illustration, not a recording from a car.
+
+Preview IDs are defined in `PfPreviewEffect`, including separate engine and idle effects on the brake. The host owns preview cancellation and transport. Previews end after two seconds and report `connected=0`. Invalid input is rejected without updating the output structure.
+
+## Build on Windows
+
+Use a C++20 LLVM-MinGW toolchain, such as `llvm-mingw-20260922-ucrt-x86_64` from [LLVM-MinGW releases](https://github.com/mstorsjo/llvm-mingw/releases/tag/20260922).
 
 ```powershell
-./build.ps1 -Toolchain 'C:\path\llvm-mingw-20260922-ucrt-x86_64' -Architecture both
+./build.ps1 -Toolchain 'C:\Tools\llvm-mingw-20260922-ucrt-x86_64' -Architecture both
 ```
 
-Outputs: `build/x86/PedalFeel.Native.dll` and `build/x64/PedalFeel.Native.dll`.
-## Isolated effect previews (0.4.0)
-
-The additive `pf_preview(config, effect, elapsed_seconds, output)` export uses the
-same ABI v3 structures (176/80 bytes) and does not need a runtime handle. It replays
-one scripted synthetic event at 60 Hz through fresh instances of the actual brake,
-throttle or surface renderer, then calls the same `physical()` conversion as live
-output. Current effect strengths (including zero), overall gain, frequency
-calibration and enabled channels are respected. A preview is an illustration of
-the algorithm; it is not a recording or prediction of a particular car.
-
-Stable IDs in `PfPreviewEffect` select brake loading, threshold, locking, ABS,
-downshift, traction, engine, limiter, idle, upshift, a road impact or a kerb. IDs
-0–4 target only brake, 5–9 only throttle, and 10–11 both enabled channels. Chassis
-crossfeed is intentionally omitted to make the selected pedal/effect clear.
-For threshold and lock previews, the pressure foundation is omitted through the
-optional C++ `BrakeRenderer::render(..., includeLoading=false)` argument; live
-rendering keeps its default true. Other unrelated effects are set to zero.
-
-Each call independently replays from the start up to the requested elapsed time,
-so there is no shared preview state and live telemetry/filter state cannot be
-changed. Upshift/downshift use one real gear transition at 150 ms; the impact uses
-one onset at 150 ms. Continuous effects use ramps and renderer envelopes, and the
-limiter retains its renderer pulse/pitch cadence. At elapsed time >=2 seconds the
-result is silent. Negative or nonfinite time, invalid configuration/ID, or a bad
-output header is rejected atomically without changing the output.
-
-During an active preview `new_sample=1`, `driving_active=1`, `stale=0` and sample age
-is zero; `session_time` is preview elapsed time. `connected` remains zero because
-this API does not inspect an actual game or device. The host must separately
-verify device availability and own/cancel the output. No DLL code writes HID/USB.
+Outputs: `build/x86/PedalFeel.Native.dll` and `build/x64/PedalFeel.Native.dll`. The target computer needs Windows UCRT; it does not need the compiler.

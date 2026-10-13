@@ -32,7 +32,7 @@ The pedal families in that entry are SimHub's device name, not a list of physica
 
 ## Install or update
 
-1. Download **PedalFeel-SimHub-0.5.1.zip** from the release assets and extract it. The **Source code** archives are not the installation package. Close SimHub for installation.
+1. Download **PedalFeel-SimHub-0.5.2.zip** from the release assets and extract it. The **Source code** archives are not the installation package. Close SimHub for installation.
 2. Run **Install.cmd**. If prompted, select `SimHubWPF.exe` in your SimHub folder.
 3. Start SimHub and open **Devices → Simagic Haptic Pedals Reactor → PedalFeel**. If the device is missing, first add it through **Devices → Add new device → Simagic Haptic Pedals Reactor**. Leave the device enabled.
 4. Enable **Automatically enable PedalFeel in iRacing**.
@@ -52,6 +52,12 @@ The original standalone PedalFeel can also run alongside SimHub when SimHub's ou
 Automatic mode waits for the **iRacing simulator itself**. Opening the iRacing launcher/UI or selecting iRacing in SimHub is not enough. Outside the simulator, normal SimHub output remains available. An explicit effect preview or motor test temporarily takes control even without the game.
 
 While PedalFeel owns the output, **Effects** and **Hardware settings** explain why their controls are locked. **Return control to SimHub** turns off automatic mode. Closing the simulator returns control automatically; SimHub can take up to four seconds to detect the exit. Pauses and replays produce silence, and stalled telemetry is silenced after 250 ms.
+
+## When the car is stopped
+
+Only the configured **Idle** effect plays on each pedal. Set that pedal's Idle slider to 0% for silence at rest. Brake pressure, ABS, wheel lock, traction, engine vibration under throttle, limiter, gear shifts and road effects cannot add vibration while stopped. Driving effects resume when the car starts moving.
+
+Idle follows its effect strength and pedal strength without being raised to the motor's minimum power. The maximum power at each frequency still applies. **Try** and **500 ms** remain available as deliberate manual previews.
 
 ## Profiles
 
@@ -95,7 +101,7 @@ Effect previews cover grip warning, ABS, downshift, rear traction loss, engine a
 
 In **Pedal setup**, select a pedal and use the frequency-row sliders and **500 ms** buttons. Set a barely perceptible minimum and a comfortable maximum at each frequency. Moving a slider saves it without starting the motor. Initial motor limits are 0–35%; adjust them for your actuators, mounting and pedals.
 
-A maximum of 100% is a ceiling, not a request to vibrate constantly at full power. Small game signals can remain small. A high minimum strengthens every nonzero signal, so use effect strength to tune the effect itself. Zero game signal remains silent even with a nonzero minimum.
+A maximum of 100% is a ceiling, not a request to vibrate constantly at full power. Small game signals can remain small. A high minimum strengthens nonzero driving cues. Idle is exempt from this minimum so a low idle setting stays quiet; it still respects the frequency maximum. Zero game signal remains silent even with a nonzero minimum.
 
 If redline feedback is too strong, lower **Limiter** for the cutoff pulse or **Engine vibration** for vibration that rises with RPM. These are independent controls.
 

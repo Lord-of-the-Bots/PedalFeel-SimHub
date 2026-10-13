@@ -43,3 +43,7 @@ semantics; they are not the plug-in's default preset values.
 ## 0.5.0
 
 Shift envelopes last 160 ms. Upshift amplitude coefficient is .34 (previously .20); road cues cannot replace an active shift pitch. The wrapper adds independent brake engine/idle controls and a throttle master through ABI v4. Automatic throttle-to-brake chassis crossfeed is replaced by explicit brake engine settings. Brake strength also applies to road and the new engine layers. Live configuration updates retain renderer history and wait for a new sample before issuing output. Previews use the live engine path with isolated, moderate synthetic inputs.
+
+## 0.5.2
+
+The wrapper isolates idle while stationary and clears driving envelopes at motion-state transitions. Idle uses proportional power below the calibrated maximum without a minimum-power floor. A weaker engine layer cannot replace the frequency or mode of stronger brake feedback.
